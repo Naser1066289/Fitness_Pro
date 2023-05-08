@@ -1,0 +1,125 @@
+<resources>
+
+    <!--    Run_Interfaace-->
+    <!--   textsize and speedgroups-->
+    <dimen name="run_interface_textsize">10sp</dimen>
+    <dimen name="numeric_textsize">10sp</dimen>
+    <dimen name="mph_group_layout_marginStart">0dp</dimen>
+    <dimen name="speed_group_layout_marginTop">70dp</dimen>
+    <dimen name="mph_group_layout_marginEnd">140dp</dimen>
+    <dimen name="speed_group_layout_marginBottom">200dp</dimen>
+    <dimen name="kmh_group_layout_marginStart">140dp</dimen>
+    <dimen name="kmh_group_layout_marginEnd">0dp</dimen>
+
+    <!--    run interface left buttons-->
+    <dimen name="playnpausebtn_paddingTop">10dp</dimen>
+
+    <!--    run interface right buttons-->
+    <dimen name="stopbtn_paddingTop">10dp</dimen>
+
+    <!--    distancegroup-->
+    <dimen name="distanceGroup_marginStart">0dp</dimen>
+    <dimen name="distanceGroup_marginEnd">140dp</dimen>
+    <dimen name="distanceGroup_marginTop">120dp</dimen>
+    <dimen name="distanceGroup_marginBottom">0dp</dimen>
+
+    <!--    caloriesgroup-->
+    <dimen name="caloriesGroup_marginStart">140dp</dimen>
+    <dimen name="caloriesGroup_marginEnd">0dp</dimen>
+    <dimen name="caloriesGroup_marginTop">120dp</dimen>
+    <dimen name="caloriesGroup_marginBottom">0dp</dimen>
+
+    <!--    timeGroup-->
+    <dimen name="timeGroup_marginStart">100dp</dimen>
+    <dimen name="timeGroup_marginEnd">100dp</dimen>
+    <dimen name="timeGroup_marginTop">160dp</dimen>
+    <dimen name="timeGroup_marginBottom">50dp</dimen>
+
+    <!--    chronometer-->
+
+
+    <!--    home -->
+    <!--    General-->
+    <!--    Buttons marginTop-->
+    <!--  HomePageDate  -->
+    <!--    Margins-->
+    <!--    start button-->
+
+
+    <!--    recycler_view_layout-->
+
+    <!--    return button-->
+
+    <!--    bottom banner-->
+
+    <!--    aboutBtnSectipn-->
+
+    <!--    about btn, settings btn, music btn -->
+
+    <!--    History Activity-->
+
+    <!--    About -->
+
+    <!--    AboutHeading-->
+
+    <!--    return home button-->
+
+    <!--    App feature heading-->
+
+    <!--    firstLine-->
+
+    <!--    secondLine-->
+
+    <!--    ThirdLine-->
+
+    <!--    Inquiries-->
+
+
+    <!--    feature1 -->
+
+    <!--    General-->
+
+    <!--    contactinfo-->
+
+    <!--    features-->
+
+    <!--    Settings-->
+
+    <!--    return button-->
+
+    <!--    TextViews and textsizes-->
+
+    <!--    button radio group-->
+
+    <!--    miles button-->
+
+    <!--    kilometer button -->
+
+    <!--    on button-->
+
+    <!--    off button-->
+
+    <!--    Spinner-->
+
+    <!--    Bottom banner-->
+
+    <!--    history-->
+<!--    date heading-->
+
+    <!--    delete button-->
+
+    <!--    TableRow-->
+
+
+    <!--    Entry columns-->
+
+    <!--    Duration columns-->
+
+    <!--    Distance columns-->
+
+    <!--    Spinner drop down-->
+
+    <!--    Spinner selected text-->
+
+
+</resources>

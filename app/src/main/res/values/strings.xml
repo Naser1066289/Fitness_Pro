@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mapbox_access_token" translatable="false">pk.eyJ1IjoiZXRoYXJrYW1hbCIsImEiOiJjbDMwaGU2c3MxcGFuM2NsYmVicnVwbjBmIn0.9c2J4j3UHxjYNqNHKEFuQg</string>
+    <string name="user_location_permission_explanation" translatable="false">This app needs location permissions in order to show its functionality.</string>
+    <string name="user_location_permission_not_granted" translatable="false">You didn\'t grant location permissions.</string>
+    <string name="Password" translatable="false">Password</string>
+    <string name="err_msg_height" translatable="false">Enter your user height </string>
+    <string name="err_msg_weight" translatable="false">Enter your user weight </string>
+    <string name="err_msg_age" translatable="false">Enter your user age </string>
+    <string name="err_msg_name" translatable="false">Enter your user name </string>
+    <string name="err_msg_Phone" translatable="false">Enter your Phone Number </string>
+    <string name="err_msg_email" translatable="false">Enter valid email address </string>
+    <string name="err_msg_password" translatable="false">Enter the password</string>
+    <string name="err_msg_password2" translatable="false">Password must be at least 4 digits</string>
+    <string name="err_msg_Repassword" translatable="false">Password dose,t match </string>
+    <string name="reminders_title" translatable="false">Reminders</string>
+    <string name="notification_string" translatable="false">Water Reminder</string>
+    <string name="notification_text" translatable="false"> reminder to drink a cup of water</string>
+    <string name="your_profile_summary" translatable="false">YOUR PROFILE SUMMARY</string>
+</resources>

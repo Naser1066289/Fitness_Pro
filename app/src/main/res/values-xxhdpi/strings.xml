@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name" translatable="false">Runora</string>
+    <string name="_00_00" translatable="false">00:00</string>
+    <string name="time">Time</string>
+    <string name="distance">Distance</string>
+    <string name="todo" translatable="false">TODO</string>
+    <string name="_0_00" translatable="false">0.00</string>
+    <string name="curr_0_00" translatable="false">0.00</string>
+    <string name="spd_in_mph" translatable="false">Spd in mph</string>
+    <string name="spd_in_km_h" translatable="false">Spd in km/h</string>
+
+</resources>

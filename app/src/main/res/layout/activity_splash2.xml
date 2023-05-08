@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageView
+        android:id="@+id/group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="false"
+        android:layout_marginLeft="66dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="66dp"
+        android:src="@drawable/ic_foodlogo" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_above="@+id/nodata"
+        android:layout_below="@+id/group"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/pathram" />
+
+    <TextView
+        android:id="@+id/nodata"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="114dp"
+        android:gravity="center_horizontal"
+        android:text="Wow Ye"
+        android:textAppearance="@style/wow_ye"
+        android:textColor="#009688"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/watch_out_w"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="90dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="W"
+            android:textAppearance="@style/watch_out_w"
+            android:textColor="#717571"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="atch "
+            android:textAppearance="@style/watch_out_w"
+            android:textColor="#009688"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text=" O"
+            android:textAppearance="@style/watch_out_w"
+            android:textColor="#717571"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="ut "
+            android:textAppearance="@style/watch_out_w"
+            android:textColor="#009688"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="W"
+            android:textAppearance="@style/watch_out_w"
+            android:textColor="#717571"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="hat"
+            android:textAppearance="@style/watch_out_w"
+            android:textColor="#009688"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text=" Y"
+            android:textAppearance="@style/watch_out_w"
+            android:textColor="#717571"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="ou "
+            android:textAppearance="@style/watch_out_w"
+            android:textColor="#009688"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="E"
+            android:textAppearance="@style/watch_out_w"
+            android:textColor="#717571"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="at"
+            android:textAppearance="@style/watch_out_w"
+            android:textColor="#009688"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/watch_out_w"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        app:backgroundTint="#009688"
+        app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+</RelativeLayout>

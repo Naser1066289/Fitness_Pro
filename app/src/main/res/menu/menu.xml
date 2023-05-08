@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="never"
+        android:title="Home" />
+    <item
+        android:id="@+id/offline"
+        android:icon="@drawable/ic_offline"
+        android:title="offline"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/food"
+        android:icon="@drawable/ic_baseline_food_bank_24"
+        app:showAsAction="never"
+        android:title="Food" />
+    <item
+        android:id="@+id/health"
+        android:icon="@drawable/ic_baseline_health_and_safety_24"
+        app:showAsAction="never"
+        android:title="Health" />
+    <item
+        android:id="@+id/run"
+        android:icon="@drawable/directions_run_24"
+        app:showAsAction="never"
+        android:title="run" />
+</menu>

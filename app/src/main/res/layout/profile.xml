@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activity.ProfileActivity">
+    <ImageView
+        android:id="@+id/mainbackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="-203dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/road_run"
+        tools:ignore="contentDescription" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/DateTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/HomePageDate"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/home_banners"
+                android:fontFamily="@font/raleway_medium"
+                android:paddingTop="20dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/rellay1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/DateTab"
+        android:background="@drawable/btn_shape_round"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="20dp">
+        <RelativeLayout
+            android:id="@+id/imgUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+
+            android:layout_marginTop="20dp"
+            android:background="@drawable/circle_border">
+
+            <ImageView
+                android:id="@+id/uploadImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="9dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginBottom="9dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/circle"
+                android:padding="3dp"
+                android:scaleType="centerInside" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgUser"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15sp"
+            android:fontFamily="sans-serif-light"
+            android:text="Name "
+            android:textColor="@color/white"
+            android:textSize="32sp" />
+
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif"
+            android:text="EmailAddress"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_address"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif"
+            android:text="Phone"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_settings" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/overlayScreen"
+        android:layout_width="match_parent"
+        android:layout_height="224dp"
+        android:layout_below="@+id/rellay1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/run_interface_background"
+        android:contentDescription="@string/todo" />
+
+
+    <LinearLayout
+        android:id="@+id/distancGroup"
+        android:layout_width="210dp"
+        android:layout_height="83dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="380dp"
+        android:layout_marginEnd="180dp"
+        android:layout_marginBottom="196dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/distance_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/_0_00"
+            android:textColor="#F8F7F7"
+            android:textSize="@dimen/numeric_textsize" />
+
+        <TextView
+            android:id="@+id/distance_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/raleway_medium"
+            android:text="@string/distance"
+            android:textColor="#F0E7E7"
+            android:textSize="@dimen/run_interface_textsize" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/calories"
+        android:layout_width="189dp"
+        android:layout_height="78dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="222dp"
+        android:layout_marginTop="383dp"
+        android:layout_marginEnd="@dimen/caloriesGroup_marginEnd"
+        android:layout_marginBottom="198dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/calories_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/_0_00"
+            android:textColor="#F8F7F7"
+            android:textSize="@dimen/numeric_textsize" />
+
+        <TextView
+            android:id="@+id/calories_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/raleway_medium"
+            android:text="Calories"
+            android:textColor="#F0E7E7"
+            android:textSize="@dimen/run_interface_textsize" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mph_group"
+        android:layout_width="184dp"
+        android:layout_height="74dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="463dp"
+        android:layout_marginEnd="191dp"
+        android:layout_marginBottom="122dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/spdInmph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/curr_0_00"
+            android:textColor="#F8F7F7"
+            android:textSize="@dimen/numeric_textsize" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/raleway_medium"
+            android:text="@string/spd_in_mph"
+            android:textColor="#F0E7E7"
+            android:textSize="@dimen/run_interface_textsize" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/kmh_group"
+        android:layout_width="189dp"
+        android:layout_height="71dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="466dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="122dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/speedInkmh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/_0_00"
+            android:textColor="#F8F7F7"
+            android:textSize="@dimen/numeric_textsize" />
+
+
+        <TextView
+            android:id="@+id/avg_speed_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/raleway_medium"
+            android:text="@string/spd_in_km_h"
+            android:textColor="#F0E7E7"
+            android:textSize="@dimen/run_interface_textsize" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/overlayScreen"
+        android:background="@drawable/btn_shape_round"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</RelativeLayout>
