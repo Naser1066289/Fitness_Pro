@@ -284,7 +284,24 @@
                 </LinearLayout>
 
             </FrameLayout>
+          <LinearLayout
+              android:layout_marginTop="20dp"
+              android:gravity="center"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+              <Button
+                  android:id="@+id/goal_activity"
+                  style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                  android:layout_width="200dp"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/white"
+                  android:layout_gravity="center"
+                  android:background="@drawable/btn_shape_round"
+                  android:text="Goal Activity"
+                  android:textStyle="bold" />
+          </LinearLayout>
         </LinearLayout>
+
     </ScrollView>
 
 </android.widget.RelativeLayout>

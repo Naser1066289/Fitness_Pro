@@ -27,7 +27,7 @@ class also calculates the BMI and provide recommendation
  */
 public class Fragment4 extends Fragment implements View.OnClickListener{
 
-    Button  b2, b3;
+    Button  b2, b3, goal_btn;
     String age, weight, height,name;
     TextView tv,tv1,tv2, tv3, tv4, tv5, tv6;
     ImageView iv1, iv2;
@@ -60,6 +60,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         b2 = (Button)view.findViewById(R.id.waterBtn);
         b2.setOnClickListener(this);
         b3 = (Button)view.findViewById(R.id.caloriesBtn);
+        goal_btn = (Button)view.findViewById(R.id.goal_activity);
         b3.setOnClickListener(this);
 
         tv1 = (TextView)view.findViewById(R.id.bmiTV1);
@@ -80,6 +81,15 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         tv3.setTypeface(tf);
         tv5.setText(weight +" KG");
         tv5.setTypeface(tf);
+
+
+        goal_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), GoalActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         //BMI Calculations
