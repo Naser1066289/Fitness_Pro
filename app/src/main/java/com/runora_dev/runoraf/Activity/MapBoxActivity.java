@@ -58,7 +58,6 @@ import java.util.List;
 import java.util.Locale;
 
 
-
 public class MapBoxActivity extends AppCompatActivity implements LocationListener, com.google.android.gms.location.LocationListener, OnMapReadyCallback, PermissionsListener {
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://fitness-final-a14e0-default-rtdb.firebaseio.com/");
     private static final int PermissionCode = 58;
@@ -86,7 +85,7 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
 
     Chronometer timer;
     CountDownTimer countDownTimer;
-    String Distance , Calories, SpeedKm, SpeedIn;
+    String Distance, Calories, SpeedKm, SpeedIn;
     static final long StartTime = 11000;
     long TimeLeft = StartTime;
 
@@ -96,9 +95,10 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
     double current_speed;
 
     private static final int AccessCode = 48;
+    private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 1;
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token));
         setContentView(R.layout.home);
@@ -123,6 +123,19 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
         Calories = calories_counter.getText().toString();
         SpeedKm = SpdInkmh.getText().toString();
         SpeedIn = SpdInmph.getText().toString();
+
+        // Check if the READ_PHONE_STATE permission has been granted
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+            // Permission has already been granted, so you can proceed with accessing the phone state data
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                int networkType = telephonyManager.getDataNetworkType();
+            }
+            // Do something with the networkType data
+        } else {
+            // Permission has not been granted yet, so you need to request it
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
+        }
+
         ToggleTheme();
         timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
@@ -133,7 +146,7 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
             }
         });
         CalenderDate();
-        FloatingActionButton account =  (FloatingActionButton) findViewById(R.id.account);
+        FloatingActionButton account = (FloatingActionButton) findViewById(R.id.account);
         account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,6 +253,7 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
             }
         });
     }
+
     private void RequestPermissions() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(MapBoxActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
 
@@ -404,6 +418,7 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
         startActivity(intent);
         finish();
     }
+
     @Override
     public void onMapReady(@NonNull final MapboxMap mapboxMap) {
         MapBoxActivity.this.mapboxMap = mapboxMap;
@@ -418,7 +433,7 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
 
     }
 
-    @SuppressWarnings( {"MissingPermission"})
+    @SuppressWarnings({"MissingPermission"})
     private void enableLocationComponent(@NonNull Style loadedMapStyle) {
 // Check if permissions are enabled and if not request
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
@@ -448,6 +463,28 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_PERMISSIONS_REQUEST_READ_PHONE_STATE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission has been granted, so you can proceed with accessing the phone state data
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    int networkType = telephonyManager.getDataNetworkType();
+                }
+                // Do something with the networkType data
+            } else {
+                // Permission has been denied, so you need to handle the situation accordingly
+                // For example, you could show a message explaining why the permission is necessary and ask the user to grant it again
+            }
+        }
     }
 
     @Override
