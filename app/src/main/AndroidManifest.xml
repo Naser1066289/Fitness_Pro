@@ -58,36 +58,43 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name="com.runora_dev.runoraf.Activity.NotifcationView"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
-        <receiver android:name="com.runora_dev.runoraf.Activity.AlarmReceiver" />
-
-        <activity
-            android:name="com.runora_dev.runoraf.Activity.DailyReportActivity"
+            android:name=".Activity.GoalActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="com.runora_dev.runoraf.Activity.AddesSuccessfully"
+            android:name=".Activity.NotifcationView"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <receiver android:name=".Activity.AlarmReceiver" />
+
+        <activity
+            android:name=".Activity.DailyReportActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Activity.AddesSuccessfully"
             android:exported="false" />
         <activity
-            android:name="com.runora_dev.runoraf.Activity.DetailActicity"
+            android:name=".Activity.DailyActivity"
             android:exported="false" />
         <activity
-            android:name="com.runora_dev.runoraf.Activity.Home"
+            android:name=".Activity.Home"
             android:exported="false" />
         <activity
-            android:name="com.runora_dev.runoraf.Activity.Splash2"
+            android:name=".Activity.Splash2"
             android:exported="false" />
         <activity
-            android:name="com.runora_dev.runoraf.Activity.Splash"
+            android:name=".Activity.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -96,7 +103,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.runora_dev.runoraf.Activity.MapBoxActivity"
+            android:name=".Activity.MapBoxActivity"
             android:exported="false" />
         <activity
             android:name="com.runora_dev.runoraf.MainActivity"
@@ -109,19 +116,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.runora_dev.runoraf.Activity.LogInActivity"
+            android:name=".Activity.LogInActivity"
             android:exported="true" />
         <activity
-            android:name="com.runora_dev.runoraf.Activity.ForgetPasswordActivity"
+            android:name=".Activity.ForgetPasswordActivity"
             android:exported="true" />
-        <activity android:name="com.runora_dev.runoraf.Activity.ProfileActivity" />
-        <activity android:name="com.runora_dev.runoraf.Activity.RunInterface" />
-        <activity android:name="com.runora_dev.runoraf.Activity.SignUpActivity" />
-        <activity android:name="com.runora_dev.runoraf.Activity.ApiActivity" />
-        <activity android:name="com.runora_dev.runoraf.Activity.DailyActivity" />
-        <activity android:name="com.runora_dev.runoraf.Activity.RemindersActivity" />
-        <receiver android:name="com.runora_dev.runoraf.Activity.AlarmReceiver" >
-        </receiver>
+        <activity android:name=".Activity.ProfileActivity" />
+        <activity android:name=".Activity.RunInterface" />
+        <activity android:name=".Activity.SignUpActivity" />
+        <activity android:name=".Activity.ApiActivity" />
+<!--        <activity android:name=".Activity.DailyActivity" />-->
+        <activity android:name=".Activity.RemindersActivity" />
+
+        <receiver android:name=".Activity.AlarmReceiver"></receiver>
     </application>
 
 </manifest>
