@@ -10,10 +10,12 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +31,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.runora_dev.runoraf.R;
 import com.runora_dev.runoraf.databinding.ActivitySignupBinding;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class SignUpActivity extends AppCompatActivity {
  ActivitySignupBinding binding;
@@ -36,11 +41,15 @@ public class SignUpActivity extends AppCompatActivity {
  ProgressDialog progressDialog;
 FirebaseFirestore firebaseFirestore;
     private static final String TAG = "SecondActivity";
-    EditText  name, email, password, rePassword, phoneNumber, height, weight, age;
+    EditText  name, email, password, rePassword, phoneNumber;
     private TextInputLayout inputLayoutName, inputLayoutEmail, inputLayoutPassword,inputLayoutRePassword,inputLayoutPhone,
             input_hight, input_weight, input_age;
     String FullName, Email, Password, RePassword, PhoneNumber, Height, Weight, Age;
     CheckBox checkbox;
+
+    Spinner heightSpinner;
+    Spinner weightSpinner;
+    Spinner ageSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +77,44 @@ FirebaseFirestore firebaseFirestore;
         password = (EditText) findViewById(R.id.reg_pass);
         rePassword = (EditText) findViewById(R.id.reg_repass);
         phoneNumber = (EditText) findViewById(R.id.reg_Phone);
-        height = (EditText) findViewById(R.id.height);
-        weight = (EditText) findViewById(R.id.weight);
-        age = (EditText) findViewById(R.id.age);
+        heightSpinner = (Spinner) findViewById(R.id.height_spinner);
+        weightSpinner = (Spinner) findViewById(R.id.weight_spinner);
+        ageSpinner = (Spinner) findViewById(R.id.age_spinner);
         checkbox = findViewById(R.id.checkbox);
         btn.getBackground().setAlpha(64);
         btn.setEnabled(false);
+
+
+        // Populate the Spinner with the items
+        List<String> items = new ArrayList<>();
+        for (int i = 60; i <= 140; i++) {
+            items.add(String.valueOf(i));
+            String[] itemsArray = items.toArray(new String[0]);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, itemsArray);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            heightSpinner.setAdapter(adapter);
+        }
+
+        // Populate the Spinner with the items
+        List<String> itemsWeight = new ArrayList<>();
+        for (int i = 60; i <= 400; i++) {
+            itemsWeight.add(String.valueOf(i));
+            String[] itemsArrayWeight = itemsWeight.toArray(new String[0]);
+            ArrayAdapter<String> adapterWeight = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, itemsArrayWeight);
+            adapterWeight.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            weightSpinner.setAdapter(adapterWeight);
+        }
+
+        // Populate the Spinner with the items
+        List<String> itemsAge = new ArrayList<>();
+        for (int i = 18; i <= 60; i++) {
+            itemsAge.add(String.valueOf(i));
+            String[] itemsArrayAge = itemsAge.toArray(new String[0]);
+            ArrayAdapter<String> adapterAge = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, itemsArrayAge);
+            adapterAge.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ageSpinner.setAdapter(adapterAge);
+        }
+
         checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -107,9 +148,9 @@ FirebaseFirestore firebaseFirestore;
                 Password = password.getText().toString();
                 RePassword = rePassword.getText().toString();
                 PhoneNumber = phoneNumber.getText().toString();
-                Height = height.getText().toString();
-                Weight = weight.getText().toString();
-                Age = age.getText().toString();
+                Height = heightSpinner.getSelectedItem().toString();
+                Weight = weightSpinner.getSelectedItem().toString();
+                Age = ageSpinner.getSelectedItem().toString();
                if (FullName.length() == 0)
                 {
                     name.requestFocus();
@@ -123,19 +164,21 @@ FirebaseFirestore firebaseFirestore;
                     password.requestFocus();
                     password.setError("Field Cannot Be Empty, Please Fill The Password Field");
                 }
-               else  if (height.length() == 0)
+               else  if (Height.length() == 0)
                 {
-                    height.requestFocus();
-                    height.setError("Field Cannot Be Empty, Please Fill The Height Field");
-                }else  if (weight.length() == 0)
+                    input_hight.setError("Please select your height");
+                    input_hight.requestFocus();
+                    return;
+                }else  if (Weight.length() == 0)
                {
-                   weight.requestFocus();
-                   weight.setError("Field Cannot Be Empty, Please Fill The Weight Field");
-               }else  if (age.length() == 0)
+                   input_weight.setError("Please select your weight");
+                   input_weight.requestFocus();
+                   return;
+               }else  if (Age.length() == 0)
                {
-                   age.requestFocus();
-                   age.setError("Field Cannot Be Empty, Please Fill The Age Field");
-               }
+                   input_age.setError("Field Cannot Be Empty, Please Fill The Age Field");
+                   input_age.requestFocus();
+                   return;}
                else  if (phoneNumber.length() == 0)
                {
                    phoneNumber.requestFocus();
@@ -146,9 +189,9 @@ FirebaseFirestore firebaseFirestore;
                    String email = binding.regEmail.getText().toString().trim();
                    String password = binding.regRepass.getText().toString();
                    String phone = binding.regPhone.getText().toString();
-                   String age = binding.age.getText().toString();
-                   String height = binding.height.getText().toString();
-                   String weight = binding.weight.getText().toString();
+                   String age = binding.ageSpinner.getSelectedItem().toString();
+                   String height = binding.heightSpinner.getSelectedItem().toString();
+                   String weight = binding.weightSpinner.getSelectedItem().toString();
                    progressDialog.show();
                    firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                        @Override
@@ -227,9 +270,9 @@ progressDialog.cancel();
         return true;
     }
     private boolean validateHeight() {
-        if (height.getText().toString().trim().isEmpty()) {
+        if (heightSpinner.getSelectedItem().toString().trim().isEmpty()) {
             input_hight.setError(getString(R.string.err_msg_height));
-            requestFocus(height);
+            requestFocus(heightSpinner);
             return false;
         } else {
             input_hight.setErrorEnabled(false);
@@ -238,9 +281,9 @@ progressDialog.cancel();
         return true;
     }
     private boolean validateWeight() {
-        if (weight.getText().toString().trim().isEmpty()) {
+        if (weightSpinner.getSelectedItem().toString().trim().isEmpty()) {
             input_weight.setError(getString(R.string.err_msg_weight));
-            requestFocus(weight);
+            requestFocus(weightSpinner);
             return false;
         } else {
             input_weight.setErrorEnabled(false);
@@ -249,9 +292,9 @@ progressDialog.cancel();
         return true;
     }
     private boolean validateAge() {
-        if (age.getText().toString().trim().isEmpty()) {
+        if (ageSpinner.getSelectedItem().toString().trim().isEmpty()) {
             input_age.setError(getString(R.string.err_msg_age));
-            requestFocus(age);
+            requestFocus(ageSpinner);
             return false;
         } else {
             input_age.setErrorEnabled(false);
@@ -362,13 +405,13 @@ progressDialog.cancel();
                 case R.id.reg_name:
                     validateName();
                     break;
-                    case R.id.height:
+                case R.id.height_spinner:
                     validateHeight();
                     break;
-                case R.id.weight:
+                case R.id.weight_spinner:
                     validateWeight();
                     break;
-                case R.id.age:
+                case R.id.age_spinner:
                     validateAge();
                     break;
                 case R.id.reg_email:
