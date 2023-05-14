@@ -13,6 +13,7 @@
         android:text="I want to lose"
         android:textColor="@color/black"
         android:textStyle="bold"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,6 +28,7 @@
         android:text="in (time duration)"
         android:textColor="@color/black"
         android:textStyle="bold"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,10 +36,12 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/kgValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Kg"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/seekbar_kg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.832"
@@ -46,10 +50,12 @@
         app:layout_constraintVertical_bias="0.157" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/monthsValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="months"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/seekBar_months"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.859"
@@ -72,11 +78,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="24dp"
+        android:max="12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
     <Button
-        android:id="@+id/calcualte_button"
+        android:id="@+id/calculate_goal_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="130dp"
@@ -89,12 +96,16 @@
         app:layout_constraintTop_toBottomOf="@+id/content_text_view" />
 
     <TextView
+        android:textAlignment="textStart"
         android:id="@+id/content_text_view"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_marginStart="30dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="32dp"
-        android:text="Content"
+        android:text="Enter the time &amp; weight you want to lose"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar_months" />
 
