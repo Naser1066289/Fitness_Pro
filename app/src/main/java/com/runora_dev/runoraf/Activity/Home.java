@@ -44,18 +44,12 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         initView();
         waterReminder();
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        // check if location permission is granted, and request it if not
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
-        } else {
-            requestLocationUpdates();
-        }
         // set up location callback to receive location updates
         locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+
                 if (locationResult == null) {
                     return;
                 }
@@ -64,6 +58,15 @@ public class Home extends AppCompatActivity {
                 }
             }
         };
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        // check if location permission is granted, and request it if not
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        } else {
+            requestLocationUpdates();
+        }
+
     }
 
     private void requestLocationUpdates() {
