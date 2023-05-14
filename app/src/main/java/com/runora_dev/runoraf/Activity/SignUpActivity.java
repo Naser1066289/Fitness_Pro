@@ -196,7 +196,7 @@ FirebaseFirestore firebaseFirestore;
                    firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                        @Override
                        public void onSuccess(AuthResult authResult) {
-                           startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
+                           startActivity(new Intent(SignUpActivity.this, TargetActivity.class));
               progressDialog.cancel();
                         firebaseFirestore.collection("user").document(FirebaseAuth.getInstance().getUid())
                                 .set(new UserModel(name,email,phone,age,height,weight));
