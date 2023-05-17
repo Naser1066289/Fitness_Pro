@@ -87,7 +87,7 @@ FirebaseFirestore firebaseFirestore;
 
         // Populate the Spinner with the items
         List<String> items = new ArrayList<>();
-        for (int i = 60; i <= 140; i++) {
+        for (int i = 60; i <= 250; i++) {
             items.add(String.valueOf(i));
             String[] itemsArray = items.toArray(new String[0]);
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, itemsArray);
