@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.runora_dev.runoraf">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -79,6 +80,7 @@
                 android:value="" />
         </activity>
 
+
         <receiver android:name=".Activity.AlarmReceiver" />
 
         <activity
@@ -111,9 +113,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activity.MapBoxActivity"
-            android:exported="false" />
+        <activity android:name=".Activity.MapBoxActivity" android:exported="true"/>
         <activity
             android:name="com.runora_dev.runoraf.MainActivity"
             android:exported="true"
