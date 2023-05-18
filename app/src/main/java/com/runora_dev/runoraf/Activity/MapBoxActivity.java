@@ -123,6 +123,7 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
         Calories = calories_counter.getText().toString();
         SpeedKm = SpdInkmh.getText().toString();
         SpeedIn = SpdInmph.getText().toString();
+
         ToggleTheme();
         timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override

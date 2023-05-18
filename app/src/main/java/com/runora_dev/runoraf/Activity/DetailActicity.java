@@ -88,6 +88,8 @@ public class DetailActicity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Firebase database
                 // create a reference to the Firebase database where you want to store your data
                 DatabaseReference foodRef = FirebaseDatabase.getInstance().getReference("foods");
 

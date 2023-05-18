@@ -145,9 +145,7 @@ public class DailyActivity extends AppCompatActivity {
         this.finish();
     }
 
-    public void saveDataToFirebase(){
 
-    }
 
 
     /* #####AsyncTask Subclass################################################################### */
