@@ -103,7 +103,7 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token));
         setContentView(R.layout.home);
         mapView = findViewById(R.id.mapView);
-        mapView.onCreate(savedInstanceState);
+        //mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
         HomePageDate = findViewById(R.id.HomePageDate);
         distance_counter = findViewById(R.id.distance_counter);
