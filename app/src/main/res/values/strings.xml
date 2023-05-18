@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="mapbox_access_token" translatable="false">pk.eyJ1IjoiZXRoYXJrYW1hbCIsImEiOiJjbDMwaGU2c3MxcGFuM2NsYmVicnVwbjBmIn0.9c2J4j3UHxjYNqNHKEFuQg</string>
+    <string name="mapbox_access_token" translatable="false">pk.eyJ1IjoibmFzZXJiIiwiYSI6ImNsaGY5ZTJocDE0YnAzZ252a25qYWFreTUifQ.XltMxJdrYTpW4NZw8T5_9A</string>
     <string name="user_location_permission_explanation" translatable="false">This app needs location permissions in order to show its functionality.</string>
     <string name="user_location_permission_not_granted" translatable="false">You didn\'t grant location permissions.</string>
     <string name="Password" translatable="false">Password</string>
