@@ -75,6 +75,10 @@ public class DailyActivity extends AppCompatActivity {
     public void onClose(View v) {
         finish();
     }
+    public  void onStatistic(View view){
+        Intent intent = new Intent(DailyActivity.this, StatisticActivity.class);
+        startActivity(intent);
+    }
 
     public void onReport(View v) {
         Intent obj = new Intent(getApplicationContext(), DailyReportActivity.class);
