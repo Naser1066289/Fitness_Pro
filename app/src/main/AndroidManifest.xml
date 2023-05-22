@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.runora_dev.runoraf">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -59,6 +59,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
+            android:name=".Activity.StatisticActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Activity.TargetActivity"
             android:exported="false">
             <meta-data
@@ -79,7 +86,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
 
         <receiver android:name=".Activity.AlarmReceiver" />
 
@@ -102,8 +108,9 @@
         <activity
             android:name=".Activity.Splash2"
             android:exported="false" />
-        <activity android:name=".Activity.DetailActicity"
-            android:exported="true"/>
+        <activity
+            android:name=".Activity.DetailActicity"
+            android:exported="true" />
         <activity
             android:name=".Activity.Splash"
             android:exported="true">
@@ -113,7 +120,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MapBoxActivity" android:exported="true"/>
+        <activity
+            android:name=".Activity.MapBoxActivity"
+            android:exported="true" />
         <activity
             android:name="com.runora_dev.runoraf.MainActivity"
             android:exported="true"
