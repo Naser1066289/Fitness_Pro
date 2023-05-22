@@ -31,6 +31,8 @@ allprojects {
                 password = project.properties['sk.eyJ1IjoiZXRoYXJrYW1hbCIsImEiOiJjbDMwZng0djQxb3I4M2RsYjBzdjNseXd2In0.3UugHfp6D5n6LntD2-4cGQ'] ?: ""
             }
         }
+        maven { url 'https://jitpack.io' }
+
     }
 }
 
