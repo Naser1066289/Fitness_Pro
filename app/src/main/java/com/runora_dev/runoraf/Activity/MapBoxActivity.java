@@ -117,7 +117,7 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
         overlayscreen = findViewById(R.id.overlayScreen);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         fusionprovider = LocationServices.getFusedLocationProviderClient(MapBoxActivity.this);
-        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+//        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
         Distance = distance_counter.getText().toString();
         Calories = calories_counter.getText().toString();
@@ -128,13 +128,29 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
             // Permission has already been granted, so you can proceed with accessing the phone state data
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                int networkType = telephonyManager.getDataNetworkType();
+            //    int networkType = telephonyManager.getDataNetworkType();
             }
             // Do something with the networkType data
         } else {
             // Permission has not been granted yet, so you need to request it
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
         }
+        permissionsManager = new PermissionsManager(new PermissionsListener() {
+            @Override
+            public void onExplanationNeeded(List<String> permissionsToExplain) {
+                // Handle permission explanation if needed
+            }
+
+            @Override
+            public void onPermissionResult(boolean granted) {
+                if (granted) {
+                    // Permission granted, handle the logic here
+                } else {
+                    // Permission not granted, handle accordingly (e.g., show a message or disable functionality)
+                }
+            }
+        });
+
 
         ToggleTheme();
         timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
@@ -462,7 +478,9 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (permissionsManager!=null) {
+            permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
         if (requestCode == MY_PERMISSIONS_REQUEST_READ_PHONE_STATE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission has been granted, so you can proceed with accessing the phone state data
@@ -477,7 +495,7 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
                     return;
                 }
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                    int networkType = telephonyManager.getDataNetworkType();
+                 //   int networkType = telephonyManager.getDataNetworkType();
                 }
                 // Do something with the networkType data
             } else {
