@@ -38,6 +38,11 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mapbox.android.core.location.LocationEngine;
+import com.mapbox.android.core.location.LocationEngineCallback;
+import com.mapbox.android.core.location.LocationEngineProvider;
+import com.mapbox.android.core.location.LocationEngineRequest;
+import com.mapbox.android.core.location.LocationEngineResult;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.mapboxsdk.Mapbox;
@@ -91,7 +96,7 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
 
     boolean active;
     long update;
-    double distance = 0;
+    double distance;
     double current_speed;
 
     private static final int AccessCode = 48;
@@ -181,6 +186,8 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
                                     play_button.setVisibility(View.GONE);
                                     pause_button.setVisibility(View.VISIBLE);
                                     active = true;
+                                    // calcute values
+                                    calculateValues();
                                 } else {
                                     RequestPermissions();
                                     {
@@ -252,7 +259,37 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
                 databaseReference.child("users").child("PhoneNumber").child("SpdInmph").setValue(SpdInmph);
             }
         });
+
     }
+
+    private void calculateValues() {
+        // Get user input or predefined values
+        double distanceKm = 10.0; // Example distance in kilometers
+        double timeMinutes = 30.0; // Example time in minutes
+        double weightKg = 70.0; // Example weight in kilograms
+
+        // Calculate speed in mph
+        double distanceMiles = distanceKm * 0.621371; // Convert distance to miles
+        double timeHours = timeMinutes / 60.0; // Convert time to hours
+        double speedMph = distanceMiles / timeHours; // Calculate speed in mph
+
+        // Calculate speed in km/h
+        double speedKmH = distanceKm / timeHours; // Calculate speed in km/h
+
+        // Calculate distance in miles
+        double distanceMiless = distanceKm * 0.621371;
+
+        // Calculate burned calories (example formula for running)
+        double caloriesBurned = 0.75 * weightKg * distanceKm;
+
+        // Update TextViews with calculated values
+        SpdInmph.setText(String.format("%.2f mph", speedMph));
+        SpdInkmh.setText(String.format("%.2f km/h", speedKmH));
+        distance_counter.setText(String.format("%.2f miles", distanceMiles));
+        calories_counter.setText(String.format("%.2f cal", caloriesBurned));
+
+    }
+
 
     private void RequestPermissions() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(MapBoxActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -506,19 +543,19 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
             finish();
         }
     }
-    private void distanceInMiles() {
-        String miles = "mi";
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        SpannableString spannableString = new SpannableString(miles);
-        spannableString.setSpan(new RelativeSizeSpan(0.50f), 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        distance = distance + (start_location.distanceTo(end_location) * 0.00062137);
-        start_location = end_location;
-        builder.append(new DecimalFormat("0.00 ").format(distance));
-        builder.append(spannableString);
-        distance_counter.setText(builder);
-
-
-    }
+//    private void distanceInMiles() {
+//        String miles = "mi";
+//        SpannableStringBuilder builder = new SpannableStringBuilder();
+//        SpannableString spannableString = new SpannableString(miles);
+//        spannableString.setSpan(new RelativeSizeSpan(0.50f), 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        distance = distance + (start_location.distanceTo(end_location) * 0.00062137);
+//        start_location = end_location;
+//        builder.append(new DecimalFormat("0.00 ").format(distance));
+//        builder.append(spannableString);
+//        distance_counter.setText(builder);
+//
+//
+//    }
 
     private void distanceInkilometers() {
         String kilometers = "km";
