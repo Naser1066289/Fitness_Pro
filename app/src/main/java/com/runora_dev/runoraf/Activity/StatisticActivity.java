@@ -6,10 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,15 +28,15 @@ import java.util.List;
 public class StatisticActivity extends AppCompatActivity {
 
     private PieChart pieChart;
-    private PieChart pieChartConsumedFood;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic);
-
+        LineChart lineChart = findViewById(R.id.lineChartBurned);
+        lineChart.setDragEnabled(true);
+        lineChart.setScaleEnabled(false);
         pieChart = (PieChart) findViewById(R.id.pieChart);
-        pieChartConsumedFood = (PieChart) findViewById(R.id.pieChartBurned);
 // Get a reference to the Firebase Realtime Database
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("dailyFood");
 
@@ -70,15 +75,15 @@ public class StatisticActivity extends AppCompatActivity {
                 PieData pieData = new PieData(dataSet);
                 pieData.setValueTextSize(12f);
 
-                // Set additional properties of the chart
-                pieChartConsumedFood.setData(pieData);
-                pieChartConsumedFood.getDescription().setEnabled(false);
-                pieChartConsumedFood.setDrawEntryLabels(false);
-                pieChartConsumedFood.setHoleColor(Color.TRANSPARENT);
-                pieChartConsumedFood.setTransparentCircleRadius(0f);
-
-                // Refresh the chart
-                pieChartConsumedFood.invalidate();
+//                // Set additional properties of the chart
+//                pieChartConsumedFood.setData(pieData);
+//                pieChartConsumedFood.getDescription().setEnabled(false);
+//                pieChartConsumedFood.setDrawEntryLabels(false);
+//                pieChartConsumedFood.setHoleColor(Color.TRANSPARENT);
+//                pieChartConsumedFood.setTransparentCircleRadius(0f);
+//
+//                // Refresh the chart
+//                pieChartConsumedFood.invalidate();
             }
 
             @Override
@@ -111,6 +116,29 @@ public class StatisticActivity extends AppCompatActivity {
 
         // Refresh the chart
         pieChart.invalidate();
+
+
+        // Dummy food consumption data for the last 30 days
+        float[] foodConsumption = {2.5f, 3.0f, 2.0f, 2.5f, 3.5f, 4.0f, 3.5f, 3.0f, 2.5f, 3.0f,
+                3.5f, 3.0f, 2.5f, 2.0f, 2.5f, 3.0f, 3.5f, 4.0f, 3.5f, 3.0f,
+                2.5f, 3.0f, 3.5f, 3.0f, 2.5f, 2.0f, 2.5f, 3.0f, 3.5f, 4.0f};
+
+        ArrayList<Entry> entriess = new ArrayList<>();
+        for (int i = 0; i < foodConsumption.length; i++) {
+            entriess.add(new Entry(i, foodConsumption[i]));
+        }
+
+        LineDataSet dataSets = new LineDataSet(entriess, "Food Consumption");
+        dataSets.setColor(Color.BLUE);
+        dataSets.setValueTextColor(Color.BLACK);
+
+        ArrayList<ILineDataSet> dataSetsd = new ArrayList<>();
+        dataSetsd.add(dataSets);
+
+        LineData lineData = new LineData(dataSets);
+
+        lineChart.setData(lineData);
+        lineChart.invalidate();
 
     }
 }

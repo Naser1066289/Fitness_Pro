@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.runora_dev.runoraf"
         minSdk 22
-        targetSdk 31
+        targetSdk 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -25,6 +25,12 @@ android {
     buildFeatures{
         viewBinding true
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
 }
 
 dependencies {
@@ -67,6 +73,18 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.0'
 
     // Add dependency for Chart Lib
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    // Mockito dependencies
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+    testImplementation 'org.robolectric:robolectric:4.5.1'
+
+// For AndroidX Test Library
+    androidTestImplementation 'androidx.test:core:1.4.0'
+    androidTestImplementation 'androidx.test:core:1.4.0'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    implementation 'com.google.firebase:firebase-auth:21.3.0'
+    androidTestImplementation 'androidx.test:core:1.2.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 }
