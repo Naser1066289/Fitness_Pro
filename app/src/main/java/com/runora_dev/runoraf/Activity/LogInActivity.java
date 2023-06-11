@@ -39,18 +39,27 @@ Sharedpreference provides the fascility to share the data to all the activities 
  */
 public class LogInActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";
+    public Context context;
+    public FirebaseAuth firebaseAuth;
+    public ProgressDialog progressDialog;
+    public FirebaseFirestore firebaseFirestore;
     String name;
     String height;
     String weight;
     String age;
     String PhoneNumber, Password;
     ActivityLoginBinding binding;
-    FirebaseAuth firebaseAuth;
-    ProgressDialog progressDialog;
-    FirebaseFirestore firebaseFirestore;
     private EditText email, password;
     private TextInputLayout inputLayoutEmail, inputLayoutPassword;
     private LinearLayout btnSignIn;
+    private SharedPreferences sharedPreferences;
+
+//    public LogInActivity(FirebaseAuth firebaseAuth, FirebaseFirestore firebaseFirestore, SharedPreferences sharedPreferences) {
+//        this.firebaseAuth = firebaseAuth;
+//        this.firebaseFirestore = firebaseFirestore;
+//        this.sharedPreferences = sharedPreferences;
+//    }
+
 
     private static boolean isValidEmail(String email) {
         return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
@@ -77,11 +86,35 @@ public class LogInActivity extends AppCompatActivity {
         PhoneNumber = email.getText().toString().trim();
         Password = password.getText().toString().trim();
 
+        String emailAddress = binding.lgEmail.getText().toString().trim();
+        String password = binding.lgPassword.getText().toString();
+        // Login section
+        loginUser(emailAddress, password);
+
+
+        TextView textView = findViewById(R.id.TextView2);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogInActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
+        TextView resetPass = findViewById(R.id.Text3);
+        resetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogInActivity.this, ForgetPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    public void loginUser(String emailAddress, String password) {
         binding.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String emailAddress = binding.lgEmail.getText().toString().trim();
-                String password = binding.lgPassword.getText().toString();
 
                 progressDialog.show();
                 firebaseAuth.signInWithEmailAndPassword(emailAddress, password)
@@ -128,23 +161,6 @@ public class LogInActivity extends AppCompatActivity {
 
                             }
                         });
-            }
-        });
-
-        TextView textView = findViewById(R.id.TextView2);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LogInActivity.this,SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
-        TextView resetPass = findViewById(R.id.Text3);
-        resetPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LogInActivity.this, ForgetPasswordActivity.class);
-                startActivity(intent);
             }
         });
 
