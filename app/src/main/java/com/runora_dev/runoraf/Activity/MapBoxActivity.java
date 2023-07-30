@@ -23,12 +23,14 @@ import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -128,6 +130,17 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
         Calories = calories_counter.getText().toString();
         SpeedKm = SpdInkmh.getText().toString();
         SpeedIn = SpdInmph.getText().toString();
+
+
+        ImageView imageButton_back_home = findViewById(R.id.back_button_home);
+        imageButton_back_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), Home.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         // Check if the READ_PHONE_STATE permission has been granted
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
