@@ -8,11 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,6 +47,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     SearchView searchView;
     CustAdapter custAdapter;
     ProgressDialog progressDialog;
+    ImageButton workoutScreen, reportScreen, foodScreen,statisticScreen;
 
     //Button btnDp,btnRep,btnFC,btnR;
     @Override
@@ -143,6 +146,45 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                 }
         });
          */
+
+        // top home navigation
+        workoutScreen = view.findViewById(R.id.workout);
+        reportScreen = view.findViewById(R.id.dialy_report);
+        foodScreen = view.findViewById(R.id.food);
+        statisticScreen = view.findViewById(R.id.statistic);
+
+        workoutScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), MapBoxActivity.class);
+                startActivity(intent);
+            }
+        });
+        reportScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), DailyActivity.class);
+                startActivity(intent);
+            }
+        });
+        foodScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Replace the current fragment with Fragment4
+                Fragment4 fragment4 = new Fragment4();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, fragment4); // R.id.fragment_container is the ID of the container where the fragments are placed
+                transaction.addToBackStack(null); // Optional: Adds the transaction to the back stack, so the user can navigate back
+                transaction.commit();
+            }
+        });
+        statisticScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), StatisticActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
