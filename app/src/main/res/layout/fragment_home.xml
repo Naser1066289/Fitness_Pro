@@ -107,13 +107,80 @@
         android:background="@drawable/ic_bgitem"
         android:elevation="20dp"
         android:paddingLeft="20dp"
+        app:queryHint="Search for recipe"
         android:queryHint="Search your food item" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/box_banner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/search"
+                >
+                <ImageButton
+                    android:id="@+id/workout"
+                    android:src="@color/bluegrey900"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"/>
+
+                <ImageButton
+                    android:id="@+id/dialy_report"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_baseline_email_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/workout"
+                    app:layout_constraintTop_toTopOf="@+id/workout"
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:layout_editor_absoluteX="187dp" />
+
+                <ImageButton
+                    android:id="@+id/workout2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@color/bluegrey900"
+                    app:layout_constraintBottom_toBottomOf="@+id/workout"
+                    app:layout_constraintStart_toEndOf="@+id/workout"
+                    app:layout_constraintTop_toTopOf="@+id/workout" />
+
+                <ImageButton
+                    android:id="@+id/workout4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@color/bluegrey900"
+                    app:layout_constraintBottom_toBottomOf="@+id/workout"
+                    app:layout_constraintEnd_toEndOf="@+id/workout2"
+                    app:layout_constraintHorizontal_bias="0.544"
+                    app:layout_constraintStart_toEndOf="@+id/workout"
+                    app:layout_constraintTop_toTopOf="@+id/workout"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <ImageButton
+                    android:id="@+id/statistic"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@color/bluegrey900"
+                    app:layout_constraintBottom_toBottomOf="@+id/workout"
+                    app:layout_constraintEnd_toEndOf="@+id/workout2"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/workout"
+                    app:layout_constraintTop_toTopOf="@+id/workout"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageButton
+                    android:id="@+id/food"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@color/bluegrey900"
+                    tools:layout_editor_absoluteX="298dp"
+                    tools:layout_editor_absoluteY="-1dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/sss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/search"
+        android:layout_below="@id/box_banner"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
@@ -134,6 +201,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="30dp" />
+
         </RelativeLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
