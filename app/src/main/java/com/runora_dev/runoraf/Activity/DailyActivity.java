@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,7 +71,30 @@ public class DailyActivity extends AppCompatActivity {
          // initialize Firebase database
         FirebaseApp.initializeApp(this);
         database = FirebaseDatabase.getInstance();
+
+        ImageView back = findViewById(R.id.food_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), Home.class);
+                startActivity(intent);
+            }
+        });
     }
+
+    @Override
+    public boolean onNavigateUp() {
+        onBackPressed();
+        return  true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();    }
 
     public void onClose(View v) {
         finish();
