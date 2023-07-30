@@ -2,9 +2,11 @@ package com.runora_dev.runoraf.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -24,7 +26,14 @@ public class GoalActivity extends AppCompatActivity {
         contentTextView = (TextView) findViewById(R.id.content_text_view);
         kgValue = (TextView) findViewById(R.id.kgValue);
         monthsValue = (TextView) findViewById(R.id.monthsValue);
-
+        ImageView target_back = findViewById(R.id.target_back);
+        target_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), Home.class);
+                startActivity(intent);
+            }
+        });
 
         kgSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -82,4 +91,17 @@ public class GoalActivity extends AppCompatActivity {
         });
      }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+          }
+
+    @Override
+    public boolean onNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

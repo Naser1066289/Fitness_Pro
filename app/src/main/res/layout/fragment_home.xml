@@ -91,13 +91,13 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:background="#D29333"
-                            android:layout_margin="10dp"
+                            android:layout_margin="8dp"
                             android:src="@drawable/baseline_sports_gymnastics_24"
                             tools:layout_editor_absoluteX="20dp"
                             tools:layout_editor_absoluteY="5dp" />
 
                         <ImageButton
-                            android:layout_margin="10dp"
+                            android:layout_margin="8dp"
                             android:id="@+id/dialy_report"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
@@ -109,7 +109,7 @@
                             tools:layout_editor_absoluteX="218dp" />
 
                         <ImageButton
-                            android:layout_margin="10dp"
+                            android:layout_margin="8dp"
                             android:id="@+id/food"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
@@ -119,7 +119,7 @@
                             tools:layout_editor_absoluteY="5dp" />
 
                         <ImageButton
-                            android:layout_margin="10dp"
+                            android:layout_margin="8dp"
                             android:id="@+id/statistic"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
