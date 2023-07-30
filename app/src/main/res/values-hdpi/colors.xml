@@ -27,4 +27,6 @@
     <!-- 4th Gradient color -->
     <color name="colorRed_start">#FF1744</color>
     <color name="colorRed_end">#B71C1C</color>
+    <color name="inactive">#231F20</color>
+    <color name="active">#161616</color>
 </resources>

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.type.Color;
 import com.runora_dev.runoraf.R;
 
 
@@ -124,6 +126,14 @@ public class Home extends AppCompatActivity {
         }
 
         bottomNavigationView = findViewById(R.id.bottomnav);
+        int activeColor = getResources().getColor(R.color.active); // Change to your desired active color
+        int inactiveColor = getResources().getColor(R.color.inactive); // Change to your desired active color
+
+        ColorStateList iconTint = createColorStateList(activeColor, inactiveColor);
+        bottomNavigationView.setItemIconTintList(iconTint);
+
+        ColorStateList textColor = createColorStateList(activeColor, inactiveColor);
+        bottomNavigationView.setItemTextColor(textColor);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -170,6 +180,19 @@ public class Home extends AppCompatActivity {
                 break;
         }
         return myString;
+    }
+    private ColorStateList createColorStateList(int activeColor, int inactiveColor) {
+        int[][] states = new int[][]{
+                new int[]{android.R.attr.state_checked}, // active state
+                new int[]{-android.R.attr.state_checked} // inactive state
+        };
+
+        int[] colors = new int[]{
+                activeColor,
+                inactiveColor
+        };
+
+        return new ColorStateList(states, colors);
     }
 
     private void showFragment(Fragment f) {
