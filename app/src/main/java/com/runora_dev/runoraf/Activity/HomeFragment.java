@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +30,7 @@ import com.runora_dev.runoraf.Webservice.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,6 +62,9 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         return view;
     }
 
+    // Required empty public constructor
+    public HomeFragment() {
+    }
     private void initview(View view) {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("loading");
@@ -172,8 +177,8 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             public void onClick(View view) {
                 // Replace the current fragment with Fragment4
                 Fragment4 fragment4 = new Fragment4();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, fragment4); // R.id.fragment_container is the ID of the container where the fragments are placed
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, fragment4); // R.id.fragment_container is the ID of the container where the fragments are placed in the HomeFragment's layout
                 transaction.addToBackStack(null); // Optional: Adds the transaction to the back stack, so the user can navigate back
                 transaction.commit();
             }

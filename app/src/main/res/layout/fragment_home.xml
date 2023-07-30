@@ -10,148 +10,157 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <RelativeLayout
+        <!-- Container layout for hosting fragments -->
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/group"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="false"
-                android:layout_marginLeft="66dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginRight="66dp"
-                 />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_below="@+id/group"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="144dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/empty" />
-
-    <TextView
-        android:id="@+id/nodata"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="540dp"
-        android:gravity="center_horizontal"
-        android:text="No recent items found"
-        android:textColor="#606161"
-        android:textStyle="bold" />
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/group"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="18dp"
-        android:background="@drawable/ic_bgitem"
-        android:elevation="20dp"
-        android:paddingLeft="20dp"
-        app:queryHint="Search your food item" />
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/box_banner"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/search"
-                >
+                android:layout_height="match_parent">
 
-           <LinearLayout
-               android:orientation="horizontal"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent">
-               <ImageButton
-                   android:id="@+id/workout"
-                   android:layout_width="80dp"
-                   android:layout_height="80dp"
-                   android:background="#D29333"
-                   android:layout_margin="10dp"
-                   android:src="@drawable/baseline_sports_gymnastics_24"
-                   tools:layout_editor_absoluteX="20dp"
-                   tools:layout_editor_absoluteY="5dp" />
+                <ImageView
+                    android:id="@+id/group"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="false"
+                    android:layout_marginLeft="66dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="66dp"
+                    />
 
-               <ImageButton
-                   android:layout_margin="10dp"
-                   android:id="@+id/dialy_report"
-                   android:layout_width="80dp"
-                   android:layout_height="80dp"
-                   android:background="#F2DE64"
-                   android:src="@drawable/baseline_file_copy_24"
-                   app:layout_constraintBottom_toBottomOf="@+id/workout"
-                   app:layout_constraintTop_toTopOf="@+id/workout"
-                   app:layout_constraintVertical_bias="0.0"
-                   tools:layout_editor_absoluteX="218dp" />
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animation_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_below="@+id/group"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="144dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/empty" />
 
-               <ImageButton
-                   android:layout_margin="10dp"
-                   android:id="@+id/food"
-                   android:layout_width="80dp"
-                   android:layout_height="80dp"
-                   android:background="#85E6EB"
-                   android:src="@drawable/baseline_fastfood_24"
-                   tools:layout_editor_absoluteX="315dp"
-                   tools:layout_editor_absoluteY="5dp" />
+                <TextView
+                    android:id="@+id/nodata"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="540dp"
+                    android:gravity="center_horizontal"
+                    android:text="No recent items found"
+                    android:textColor="#606161"
+                    android:textStyle="bold" />
 
-               <ImageButton
-                   android:layout_margin="10dp"
-                   android:id="@+id/statistic"
-                   android:layout_width="80dp"
-                   android:layout_height="80dp"
-                   android:background="#184056"
-                   android:src="@drawable/baseline_format_list_numbered_24"
-                   tools:layout_editor_absoluteX="117dp"
-                   tools:layout_editor_absoluteY="5dp" />
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/group"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginBottom="18dp"
+                    android:background="@drawable/ic_bgitem"
+                    android:elevation="20dp"
+                    android:paddingLeft="20dp"
+                    app:queryHint="Search your food item" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/box_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/search"
+                    >
 
-           </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ImageButton
+                            android:id="@+id/workout"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:background="#D29333"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/baseline_sports_gymnastics_24"
+                            tools:layout_editor_absoluteX="20dp"
+                            tools:layout_editor_absoluteY="5dp" />
 
-    <TextView
-        android:id="@+id/sss"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/box_banner"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="20dp"
-        android:text="Recent Search History"
-        android:textColor="#90000000"
-        android:textSize="20dp"
-        android:textStyle="bold" />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/datarec"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:nestedScrollingEnabled="false"
-        android:layout_below="@id/sss"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="30dp" />
+                        <ImageButton
+                            android:layout_margin="10dp"
+                            android:id="@+id/dialy_report"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:background="#F2DE64"
+                            android:src="@drawable/baseline_file_copy_24"
+                            app:layout_constraintBottom_toBottomOf="@+id/workout"
+                            app:layout_constraintTop_toTopOf="@+id/workout"
+                            app:layout_constraintVertical_bias="0.0"
+                            tools:layout_editor_absoluteX="218dp" />
 
-        </RelativeLayout>
+                        <ImageButton
+                            android:layout_margin="10dp"
+                            android:id="@+id/food"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:background="#85E6EB"
+                            android:src="@drawable/baseline_fastfood_24"
+                            tools:layout_editor_absoluteX="315dp"
+                            tools:layout_editor_absoluteY="5dp" />
+
+                        <ImageButton
+                            android:layout_margin="10dp"
+                            android:id="@+id/statistic"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:background="#184056"
+                            android:src="@drawable/baseline_format_list_numbered_24"
+                            tools:layout_editor_absoluteX="117dp"
+                            tools:layout_editor_absoluteY="5dp" />
+
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/sss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/box_banner"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:text="Recent Search History"
+                    android:textColor="#90000000"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/datarec"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_below="@id/sss"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="30dp" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
     </LinearLayout>
+
 </androidx.core.widget.NestedScrollView>
