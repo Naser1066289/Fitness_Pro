@@ -10,44 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <!--
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/btndaily"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PLANNER" />
-            <Button
-                android:id="@+id/btndailyrep"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="REPORT" />
-            <Button
-                android:id="@+id/btnreminder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="REMINDER" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/btnfccalc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="FAT CALCULATOR" />
-            <Button
-                android:id="@+id/btn123"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="FAT CALCULATOR" />
-        </LinearLayout>
-        -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -107,73 +69,61 @@
         android:background="@drawable/ic_bgitem"
         android:elevation="20dp"
         android:paddingLeft="20dp"
-        app:queryHint="Search for recipe"
-        android:queryHint="Search your food item" />
+        app:queryHint="Search your food item" />
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/box_banner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/search"
                 >
-                <ImageButton
-                    android:id="@+id/workout"
-                    android:src="@color/bluegrey900"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"/>
 
-                <ImageButton
-                    android:id="@+id/dialy_report"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ic_baseline_email_24"
-                    app:layout_constraintBottom_toBottomOf="@+id/workout"
-                    app:layout_constraintTop_toTopOf="@+id/workout"
-                    app:layout_constraintVertical_bias="1.0"
-                    tools:layout_editor_absoluteX="187dp" />
+           <LinearLayout
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+               <ImageButton
+                   android:id="@+id/workout"
+                   android:layout_width="80dp"
+                   android:layout_height="80dp"
+                   android:background="#D29333"
+                   android:layout_margin="10dp"
+                   android:src="@drawable/baseline_sports_gymnastics_24"
+                   tools:layout_editor_absoluteX="20dp"
+                   tools:layout_editor_absoluteY="5dp" />
 
-                <ImageButton
-                    android:id="@+id/workout2"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@color/bluegrey900"
-                    app:layout_constraintBottom_toBottomOf="@+id/workout"
-                    app:layout_constraintStart_toEndOf="@+id/workout"
-                    app:layout_constraintTop_toTopOf="@+id/workout" />
+               <ImageButton
+                   android:layout_margin="10dp"
+                   android:id="@+id/dialy_report"
+                   android:layout_width="80dp"
+                   android:layout_height="80dp"
+                   android:background="#F2DE64"
+                   android:src="@drawable/baseline_file_copy_24"
+                   app:layout_constraintBottom_toBottomOf="@+id/workout"
+                   app:layout_constraintTop_toTopOf="@+id/workout"
+                   app:layout_constraintVertical_bias="0.0"
+                   tools:layout_editor_absoluteX="218dp" />
 
-                <ImageButton
-                    android:id="@+id/workout4"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="8dp"
-                    android:src="@color/bluegrey900"
-                    app:layout_constraintBottom_toBottomOf="@+id/workout"
-                    app:layout_constraintEnd_toEndOf="@+id/workout2"
-                    app:layout_constraintHorizontal_bias="0.544"
-                    app:layout_constraintStart_toEndOf="@+id/workout"
-                    app:layout_constraintTop_toTopOf="@+id/workout"
-                    app:layout_constraintVertical_bias="1.0" />
+               <ImageButton
+                   android:layout_margin="10dp"
+                   android:id="@+id/food"
+                   android:layout_width="80dp"
+                   android:layout_height="80dp"
+                   android:background="#85E6EB"
+                   android:src="@drawable/baseline_fastfood_24"
+                   tools:layout_editor_absoluteX="315dp"
+                   tools:layout_editor_absoluteY="5dp" />
 
-                <ImageButton
-                    android:id="@+id/statistic"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="8dp"
-                    android:src="@color/bluegrey900"
-                    app:layout_constraintBottom_toBottomOf="@+id/workout"
-                    app:layout_constraintEnd_toEndOf="@+id/workout2"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/workout"
-                    app:layout_constraintTop_toTopOf="@+id/workout"
-                    app:layout_constraintVertical_bias="0.0" />
+               <ImageButton
+                   android:layout_margin="10dp"
+                   android:id="@+id/statistic"
+                   android:layout_width="80dp"
+                   android:layout_height="80dp"
+                   android:background="#184056"
+                   android:src="@drawable/baseline_format_list_numbered_24"
+                   tools:layout_editor_absoluteX="117dp"
+                   tools:layout_editor_absoluteY="5dp" />
 
-                <ImageButton
-                    android:id="@+id/food"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@color/bluegrey900"
-                    tools:layout_editor_absoluteX="298dp"
-                    tools:layout_editor_absoluteY="-1dp" />
-
+           </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
