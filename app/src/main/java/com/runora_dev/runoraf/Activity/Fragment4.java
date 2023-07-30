@@ -2,6 +2,7 @@ package com.runora_dev.runoraf.Activity;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,6 +71,16 @@ public class Fragment4 extends Fragment implements View.OnClickListener {
         tv3.setTypeface(tf);
         tv5.setText(weight + " KG");
         tv5.setTypeface(tf);
+
+
+        ImageView profileBack = view.findViewById(R.id.profile_back);
+        profileBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Home.class);
+                startActivity(intent);
+            }
+        });
 
         goal_btn.setOnClickListener(new View.OnClickListener() {
             @Override

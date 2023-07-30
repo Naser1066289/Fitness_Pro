@@ -34,7 +34,7 @@
                 android:background="@drawable/ic_bgitem"
                 android:elevation="20dp"
                 android:paddingLeft="20dp"
-                android:queryHint="Search your food item" />
+                app:queryHint="Search your food item" />
 
             <TextView
                 android:id="@+id/sss"
