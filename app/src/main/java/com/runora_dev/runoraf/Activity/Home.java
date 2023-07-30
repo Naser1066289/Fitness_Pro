@@ -108,13 +108,21 @@ public class Home extends AppCompatActivity {
 
     }
 
+
     private void initView() {
         Intent ii = getIntent();
-        String val = ii.getExtras().getString("frag");
-        if (val.equals("4"))
-            showFragment(new Fragment4());
-        else
-            showFragment(new HomeFragment());
+        Bundle extras = ii.getExtras();
+        if (extras != null) {
+            String val = extras.getString("frag");
+            if (val != null && val.equals("4")) {
+                showFragment(new Fragment4());
+            } else {
+                showFragment(new HomeFragment());
+            }
+        } else {
+            showFragment(new HomeFragment()); // Handle the case when "frag" is not provided
+        }
+
         bottomNavigationView = findViewById(R.id.bottomnav);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -123,11 +131,9 @@ public class Home extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.home:
                         showFragment(new HomeFragment());
-
                         break;
                     case R.id.offline:
                         showFragment(new OfflineFragment());
-
                         break;
                     case R.id.health:
                         showFragment(new Fragment4());
@@ -139,7 +145,6 @@ public class Home extends AppCompatActivity {
                     case R.id.run:
                         Intent launchNewIntent = new Intent(Home.this, MapBoxActivity.class);
                         startActivityForResult(launchNewIntent, 0);
-
                         break;
                 }
 
@@ -147,7 +152,6 @@ public class Home extends AppCompatActivity {
             }
         });
     }
-
     public String getMyData(String s) {
         String myString = s;
         SharedPreferences sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE);
