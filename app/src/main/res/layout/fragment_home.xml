@@ -11,10 +11,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <!-- Container layout for hosting fragments -->
+
+
+
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -31,6 +35,15 @@
                     android:layout_marginTop="50dp"
                     android:layout_marginRight="66dp"
                     />
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/home_page_profile"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_alignEnd="@+id/group"
+                    android:layout_marginEnd="-26dp"
+                    android:src="@drawable/account" />
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/animation_view"

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +81,15 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         datarec = view.findViewById(R.id.datarec);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        ImageView profile = view.findViewById(R.id.home_page_profile);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
         datarec.setLayoutManager(linearLayoutManager);
 
         animationView.addAnimatorUpdateListener(

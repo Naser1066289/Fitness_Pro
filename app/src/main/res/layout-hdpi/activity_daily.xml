@@ -7,27 +7,35 @@
     android:layout_height="match_parent"
     tools:context=".Activity.DailyActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <ImageView
-            android:layout_marginTop="8dp"
             android:id="@+id/food_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
             app:srcCompat="@drawable/baseline_arrow_back_24" />
+        <ImageView
+            android:id="@+id/dialy_profile_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/account" />
+
 
         <TextView
-        android:id="@+id/textView13"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:gravity="center"
-        android:text="Daily Food Details"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="Daily Food Details"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etb"
@@ -37,6 +45,7 @@
             android:ems="10"
             android:hint="breakfast"
             android:inputType="textPersonName" />
+
         <EditText
             android:id="@+id/etl"
             android:layout_width="250dp"
@@ -46,6 +55,7 @@
             android:ems="10"
             android:hint="Lunch"
             android:inputType="textPersonName" />
+
         <EditText
             android:id="@+id/etd"
             android:layout_width="250dp"
@@ -57,65 +67,70 @@
             android:inputType="textPersonName" />
 
         <Button
-            android:layout_marginTop="10dp"
             android:id="@+id/calculateBtn"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="230dp"
-            android:textSize="18sp"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_shape_round"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_shape_round"
             android:onClick="calculateClk"
-            android:text="Calculate Calories" />
+            android:text="Calculate Calories"
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="250dp"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_margin="25dp"
-            android:orientation="vertical"
-            android:layout_gravity="center">
+            android:orientation="vertical">
+
             <LinearLayout
-                android:background="@color/colorPrimaryDark"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark">
 
                 <TextView
                     android:id="@+id/tvb"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="10dp"
-                android:background="@color/colorAmber_start"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorAmber_start">
+
                 <TextView
-                    android:layout_marginLeft="10dp"
                     android:id="@+id/tvl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="10dp"
-                android:background="@color/colorAmber_end"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorAmber_end">
+
                 <TextView
-                    android:layout_marginLeft="10dp"
                     android:id="@+id/tvd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <View
@@ -123,68 +138,75 @@
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:background="@android:color/black"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
+
             <View
                 android:id="@+id/view1"
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:background="@android:color/black"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
+
             <View
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:background="@android:color/black"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
+
             <Button
-                android:layout_marginTop="20dp"
                 android:id="@+id/btnSave"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/btn_shape_round"
                 android:onClick="onSave"
-                android:textSize="18sp"
-                android:text="SAVE" />
+                android:text="SAVE"
+                android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
             <Button
                 android:id="@+id/btndailyrep"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:background="@drawable/btn_shape_round"
-                android:text="REPORT"
-                android:textSize="18sp"
                 android:onClick="onReport"
-                android:layout_gravity="center"/>
+                android:text="REPORT"
+                android:textSize="18sp" />
+
             <Button
-                android:layout_marginTop="20dp"
                 android:id="@+id/btnclose"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_shape_round"
-                android:text="CLOSE"
-                android:textSize="18sp"
-                android:onClick="onClose"
-                android:layout_gravity="center"/>
-            <Button
+                android:layout_gravity="center"
                 android:layout_marginTop="20dp"
+                android:background="@drawable/btn_shape_round"
+                android:onClick="onClose"
+                android:text="CLOSE"
+                android:textSize="18sp" />
+
+            <Button
                 android:id="@+id/btnGoToStatistic"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/btn_shape_round"
-                android:text="Statistic"
-                android:textSize="18sp"
                 android:onClick="onStatistic"
-                android:layout_gravity="center"/>
+                android:text="Statistic"
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>

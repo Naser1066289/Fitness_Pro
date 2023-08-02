@@ -73,6 +73,15 @@ public class DailyActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         ImageView back = findViewById(R.id.food_back);
+        ImageView profile = findViewById(R.id.dialy_profile_page);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
