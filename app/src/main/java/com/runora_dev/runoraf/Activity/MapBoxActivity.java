@@ -66,7 +66,7 @@ import java.util.Locale;
 
 
 public class MapBoxActivity extends AppCompatActivity implements LocationListener, com.google.android.gms.location.LocationListener, OnMapReadyCallback, PermissionsListener {
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://fitness-final-a14e0-default-rtdb.firebaseio.com/");
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://runora-app-ceeee-default-rtdb.firebaseio.com");
     private static final int PermissionCode = 58;
 
 
@@ -168,7 +168,7 @@ public class MapBoxActivity extends AppCompatActivity implements LocationListene
         account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MapBoxActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(MapBoxActivity.this, ProfileActivity.class);
                 startActivity(intent);
             }
         });

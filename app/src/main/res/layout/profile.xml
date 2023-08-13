@@ -75,7 +75,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imgUser"
@@ -88,20 +88,20 @@
 
 
         <TextView
-            android:id="@+id/tv_address"
+            android:id="@+id/emailTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_name"
+            android:layout_below="@+id/nameTextView"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif"
             android:text="EmailAddress"
             android:textColor="@color/black"
             android:textSize="14sp" />
         <TextView
-            android:id="@+id/tv_phone"
+            android:id="@+id/phoneTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_address"
+            android:layout_below="@+id/emailTextView"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif"
             android:text="Phone"
