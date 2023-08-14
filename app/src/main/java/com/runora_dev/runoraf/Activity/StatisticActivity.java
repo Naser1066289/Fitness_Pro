@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -31,7 +34,7 @@ import java.util.List;
 public class StatisticActivity extends AppCompatActivity {
 
     private LineChart pieChart;
-
+    private Spinner spinnerTimePeriod;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +46,7 @@ public class StatisticActivity extends AppCompatActivity {
         pieChart = (LineChart) findViewById(R.id.pieChart);
         pieChart.setDragEnabled(true);
         pieChart.setScaleEnabled(false);
-
+        spinnerTimePeriod = findViewById(R.id.spinnerTimePeriod);
         ImageView statisticBack = findViewById(R.id.statisc_back);
         statisticBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +128,98 @@ public class StatisticActivity extends AppCompatActivity {
 //        pieChart.invalidate();
 
         // Dummy food consumption data for the last 30 days
+//        float[] foodburnedLastWeek = {4.5f, 3.0f, 2.0f, 2.5f, 3.5f, 2.0f, 6.5f, 3.0f, 2.5f, 3.0f,
+//                3.5f, 4.0f, 2.5f, 2.0f, 2.5f, 5.0f, 9.5f, 4.0f, 3.6f, 3.0f};
+//
+//        float[] foodburnedLastMonth = {6.5f, 5.0f, 7.0f, 5.5f, 4.5f, 6.0f, 4.5f, 5.0f, 6.5f, 4.0f,
+//                3.5f, 4.0f, 5.5f, 6.0f, 5.5f, 6.0f, 5.5f, 5.0f, 6.0f, 7.0f, 5.5f, 6.0f, 7.0f};
+//
+//        float[] foodburnedLastYear = {8.5f, 9.0f, 7.5f, 8.0f, 9.5f, 8.0f, 8.5f, 9.0f, 7.0f, 8.0f,
+//                9.5f, 8.0f, 8.5f, 9.0f, 7.5f, 8.0f, 9.5f, 8.0f, 8.5f, 9.0f, 7.5f, 8.0f, 9.5f};
+//
+//        ArrayList<Entry> entriesLastWeek = new ArrayList<>();
+//        for (int i = 0; i < foodburnedLastWeek.length; i++) {
+//            entriesLastWeek.add(new Entry(i, foodburnedLastWeek[i]));
+//        }
+//
+//        ArrayList<Entry> entriesLastMonth = new ArrayList<>();
+//        for (int i = 0; i < foodburnedLastMonth.length; i++) {
+//            entriesLastMonth.add(new Entry(i, foodburnedLastMonth[i]));
+//        }
+//
+//        ArrayList<Entry> entriesLastYear = new ArrayList<>();
+//        for (int i = 0; i < foodburnedLastYear.length; i++) {
+//            entriesLastYear.add(new Entry(i, foodburnedLastYear[i]));
+//        }
+//
+//        LineDataSet dataSetLastWeek = new LineDataSet(entriesLastWeek, "Last Week");
+//        dataSetLastWeek.setColor(Color.BLUE);
+//        dataSetLastWeek.setValueTextColor(Color.BLACK);
+//
+//        LineDataSet dataSetLastMonth = new LineDataSet(entriesLastMonth, "Last Month");
+//        dataSetLastMonth.setColor(Color.GREEN);
+//        dataSetLastMonth.setValueTextColor(Color.BLACK);
+//
+//        LineDataSet dataSetLastYear = new LineDataSet(entriesLastYear, "Last Year");
+//        dataSetLastYear.setColor(Color.RED);
+//        dataSetLastYear.setValueTextColor(Color.BLACK);
+//
+//        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+//        dataSets.add(dataSetLastWeek);
+//        dataSets.add(dataSetLastMonth);
+//        dataSets.add(dataSetLastYear);
+//
+//        LineData lineData = new LineData(dataSets);
+//
+//        pieChart.setData(lineData);
+//        pieChart.invalidate();
+
+// new impl
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.time_periods, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTimePeriod.setAdapter(adapter);
+
+        spinnerTimePeriod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                updateChart(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // Do nothing
+            }
+        });
+        // Dummy food consumption data for the last 30 days
+        float[] foodConsumption1 = {2.5f, 3.0f, 2.0f, 2.5f, 3.5f, 4.0f, 3.5f, 3.0f, 2.5f, 3.0f,
+                3.5f, 3.0f, 2.5f, 2.0f, 2.5f, 3.0f, 3.5f, 4.0f, 3.5f, 3.0f,
+                2.5f, 3.0f, 3.5f, 3.0f, 2.5f, 2.0f, 2.5f, 3.0f, 3.5f, 4.0f};
+
+        ArrayList<Entry> entriess1 = new ArrayList<>();
+        for (int i = 0; i < foodConsumption1.length; i++) {
+            entriess1.add(new Entry(i, foodConsumption1[i]));
+        }
+
+        LineDataSet dataSets2 = new LineDataSet(entriess1, "Food Consumption");
+        dataSets2.setColor(Color.BLUE);
+        dataSets2.setValueTextColor(Color.BLACK);
+
+        ArrayList<ILineDataSet> dataSetsd2 = new ArrayList<>();
+        dataSetsd2.add(dataSets2);
+
+        LineData lineData1 = new LineData(dataSetsd2);
+
+        lineChart.setData(lineData1);
+        lineChart.invalidate();
+
+    }
+
+    private void updateChart(int position) {
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        LineDataSet dataSet = null;
+        // Dummy food consumption data for the last 30 days
         float[] foodburnedLastWeek = {4.5f, 3.0f, 2.0f, 2.5f, 3.5f, 2.0f, 6.5f, 3.0f, 2.5f, 3.0f,
                 3.5f, 4.0f, 2.5f, 2.0f, 2.5f, 5.0f, 9.5f, 4.0f, 3.6f, 3.0f};
 
@@ -149,51 +244,30 @@ public class StatisticActivity extends AppCompatActivity {
             entriesLastYear.add(new Entry(i, foodburnedLastYear[i]));
         }
 
-        LineDataSet dataSetLastWeek = new LineDataSet(entriesLastWeek, "Last Week");
-        dataSetLastWeek.setColor(Color.BLUE);
-        dataSetLastWeek.setValueTextColor(Color.BLACK);
-
-        LineDataSet dataSetLastMonth = new LineDataSet(entriesLastMonth, "Last Month");
-        dataSetLastMonth.setColor(Color.GREEN);
-        dataSetLastMonth.setValueTextColor(Color.BLACK);
-
-        LineDataSet dataSetLastYear = new LineDataSet(entriesLastYear, "Last Year");
-        dataSetLastYear.setColor(Color.RED);
-        dataSetLastYear.setValueTextColor(Color.BLACK);
-
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(dataSetLastWeek);
-        dataSets.add(dataSetLastMonth);
-        dataSets.add(dataSetLastYear);
-
-        LineData lineData = new LineData(dataSets);
-
-        pieChart.setData(lineData);
-        pieChart.invalidate();
-
-
-        // Dummy food consumption data for the last 30 days
-        float[] foodConsumption1 = {2.5f, 3.0f, 2.0f, 2.5f, 3.5f, 4.0f, 3.5f, 3.0f, 2.5f, 3.0f,
-                3.5f, 3.0f, 2.5f, 2.0f, 2.5f, 3.0f, 3.5f, 4.0f, 3.5f, 3.0f,
-                2.5f, 3.0f, 3.5f, 3.0f, 2.5f, 2.0f, 2.5f, 3.0f, 3.5f, 4.0f};
-
-        ArrayList<Entry> entriess1 = new ArrayList<>();
-        for (int i = 0; i < foodConsumption1.length; i++) {
-            entriess1.add(new Entry(i, foodConsumption1[i]));
+        switch (position) {
+            case 0: // Last Week
+                dataSet = new LineDataSet(entriesLastWeek, "Last Week");
+                dataSet.setColor(Color.BLUE);
+                dataSet.setValueTextColor(Color.BLACK);
+                break;
+            case 1: // Last Month
+                dataSet = new LineDataSet(entriesLastMonth, "Last Month");
+                dataSet.setColor(Color.GREEN);
+                dataSet.setValueTextColor(Color.BLACK);
+                break;
+            case 2: // Last Year
+                dataSet = new LineDataSet(entriesLastYear, "Last Year");
+                dataSet.setColor(Color.RED);
+                dataSet.setValueTextColor(Color.BLACK);
+                break;
         }
 
-        LineDataSet dataSets2 = new LineDataSet(entriess1, "Food Consumption");
-        dataSets2.setColor(Color.BLUE);
-        dataSets2.setValueTextColor(Color.BLACK);
-
-        ArrayList<ILineDataSet> dataSetsd2 = new ArrayList<>();
-        dataSetsd2.add(dataSets2);
-
-        LineData lineData1 = new LineData(dataSetsd2);
-
-        lineChart.setData(lineData1);
-        lineChart.invalidate();
-
+        if (dataSet != null) {
+            dataSets.add(dataSet);
+            LineData lineData = new LineData(dataSets);
+            pieChart.setData(lineData);
+            pieChart.invalidate();
+        }
     }
 
     @Override

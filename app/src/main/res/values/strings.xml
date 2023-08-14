@@ -17,4 +17,10 @@
     <string name="notification_string" translatable="false">Water Reminder</string>
     <string name="notification_text" translatable="false"> reminder to drink a cup of water</string>
     <string name="your_profile_summary" translatable="false">YOUR PROFILE SUMMARY</string>
+    <string-array name="time_periods">
+        <item>Last Week</item>
+        <item>Last Month</item>
+        <item>Last Year</item>
+    </string-array>
+
 </resources>
