@@ -153,7 +153,7 @@ public class Home extends AppCompatActivity {
                         startActivityForResult(foodIntent, 0);
                         break;
                     case R.id.run:
-                        Intent launchNewIntent = new Intent(Home.this, MapBoxActivity.class);
+                        Intent launchNewIntent = new Intent(Home.this, TestMap.class);
                         startActivityForResult(launchNewIntent, 0);
                         break;
                 }

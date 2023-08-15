@@ -59,6 +59,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
+            android:name=".Activity.ActivitesMapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.TestMap"
+            android:exported="false" />
+        <activity
             android:name=".Activity.StatisticActivity"
             android:exported="false">
             <meta-data
@@ -124,7 +130,7 @@
             android:name=".Activity.MapBoxActivity"
             android:exported="true" />
         <activity
-            android:name="com.runora_dev.runoraf.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:noHistory="true"
             android:screenOrientation="portrait">

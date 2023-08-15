@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.TestMap">
+
+
+
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/testmapView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:mapbox_cameraTargetLat="25.276987"
+    app:mapbox_cameraTargetLng="55.296249"
+        app:mapbox_cameraZoom="9.0"
+        android:layout_marginTop="16dp">
+        <TextView
+            android:layout_gravity="start|center"
+
+            android:id="@+id/elapsedTimeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Elapsed Time: 00:00:00"
+            android:layout_below="@id/caloriesTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+        <Button
+            android:id="@+id/playButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"/>
+
+        <Button
+            android:layout_gravity="start|bottom"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:id="@+id/finishButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Finish"
+            android:layout_below="@id/playButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"/>
+    <TextView
+        android:layout_gravity="end|center"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:id="@+id/distanceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Distance: "
+        android:background="@color/colorRed_end"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+        <TextView
+            android:layout_gravity="end|center"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:id="@+id/speedKmphTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 Km/h"
+            android:layout_below="@id/distanceTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="19dp"/>
+        <TextView
+            android:layout_gravity="end|center"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:id="@+id/speedMphTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 mph"
+            android:layout_below="@id/speedKmphTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"/>
+
+        <TextView
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:id="@+id/caloriesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 calories"
+            android:layout_gravity="end|center"
+            android:layout_below="@id/speedMphTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90dp"/>
+
+
+    </com.mapbox.mapboxsdk.maps.MapView>
+</RelativeLayout>
