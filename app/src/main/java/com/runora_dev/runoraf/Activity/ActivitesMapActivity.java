@@ -1,9 +1,15 @@
 package com.runora_dev.runoraf.Activity;
 
+import static com.runora_dev.runoraf.Activity.TestMap.LOCATION_PERMISSION_REQUEST_CODE;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.location.OnCameraTrackingChangedListener;
+import com.mapbox.mapboxsdk.location.OnLocationClickListener;
 import com.runora_dev.runoraf.R;
 
 
@@ -88,6 +94,7 @@ public class ActivitesMapActivity extends AppCompatActivity implements LocationL
     FusedLocationProviderClient fusionprovider;
     LocationRequest locationRequest;
     Location start_location, end_location, curr_location;
+    private long elapsedTime;
 
     TextView distance_counter;
     TextView calories_counter;
@@ -98,15 +105,24 @@ public class ActivitesMapActivity extends AppCompatActivity implements LocationL
     ImageView overlayscreen;
 
     Chronometer timer;
+    private CountDownTimer Counttimer;
+
     CountDownTimer countDownTimer;
     String Distance, Calories, SpeedKm, SpeedIn;
-    static final long StartTime = 11000;
+    static long StartTime = 11000;
     long TimeLeft = StartTime;
 
     boolean active;
     long update;
     double distance;
     double current_speed;
+    private boolean isTracking = false;
+    private double previousLatitude = 0;
+    private double previousLongitude = 0;
+    private double totalDistanceMeters = 0;
+    private double currentSpeedKmph = 0;
+    private double currentSpeedMph = 0;
+    private double caloriesBurned = 0;
 
     private static final int AccessCode = 48;
     private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 1;
@@ -180,108 +196,439 @@ public class ActivitesMapActivity extends AppCompatActivity implements LocationL
             }
         });
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        play_button.setOnClickListener(view -> {
+            startTracking();
+            play_button.setVisibility(View.GONE);
+            pause_button.setVisibility(View.VISIBLE);
+            stop_btn.setVisibility(View.VISIBLE);
+        });
 
-        play_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                ResumeRunnable resumeRunnable = new ResumeRunnable();
-                new Thread(resumeRunnable).start();
-            }
+        pause_button.setOnClickListener(view -> {
+            pauseTracking();
+            play_button.setVisibility(View.VISIBLE);
+            pause_button.setVisibility(View.GONE);
+            stop_btn.setVisibility(View.VISIBLE);
+        });
 
-            class ResumeRunnable implements Runnable {
-                @Override
-                public void run() {
-                    play_button.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!active) {
-                                if (ContextCompat.checkSelfPermission(ActivitesMapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                                        && ContextCompat.checkSelfPermission(ActivitesMapActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                                        && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                                        && ContextCompat.checkSelfPermission(ActivitesMapActivity.this,
-                                        Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-                                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, ActivitesMapActivity.this);
-                                    createLocationRequest();
-                                    timer.setBase(SystemClock.elapsedRealtime() - update);
-                                    timer.start();
-                                    play_button.setVisibility(View.GONE);
-                                    pause_button.setVisibility(View.VISIBLE);
-                                    active = true;
-                                    // calcute values
-                                    calculateValues();
-                                } else {
-                                    RequestPermissions();
-                                    {
+        stop_btn.setOnClickListener(view -> {
+            captureLocation();
+            // Calculate calories burned and distance here
+            double distanceKm = totalDistanceMeters / 1000; // Convert meters to kilometers
+
+            calculateCaloriesBurned(distanceKm);
+            // Update the UI elements with calculated values
+            updateDistanceUI(totalDistanceMeters);
+            updateCaloriesUI(caloriesBurned);
+            play_button.setVisibility(View.VISIBLE);
+            pause_button.setVisibility(View.GONE);
+            stop_btn.setVisibility(View.GONE);
+        });
+
+        // Initially, only the Play button should be visible
+        play_button.setVisibility(View.VISIBLE);
+        pause_button.setVisibility(View.GONE);
+        stop_btn.setVisibility(View.GONE);
+//        play_button.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                ResumeRunnable resumeRunnable = new ResumeRunnable();
+//                new Thread(resumeRunnable).start();
+//            }
+//
+//            class ResumeRunnable implements Runnable {
+//                @Override
+//                public void run() {
+//                    play_button.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (!active) {
+//                                if (ContextCompat.checkSelfPermission(ActivitesMapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+//                                        && ContextCompat.checkSelfPermission(ActivitesMapActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+//                                        && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+//                                        && ContextCompat.checkSelfPermission(ActivitesMapActivity.this,
+//                                        Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+//                                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, ActivitesMapActivity.this);
+//                                    createLocationRequest();
+//                                    timer.setBase(SystemClock.elapsedRealtime() - update);
+//                                    timer.start();
+//                                    play_button.setVisibility(View.GONE);
+//                                    pause_button.setVisibility(View.VISIBLE);
+//                                    active = true;
+//                                    // calcute values
+//                                    calculateValues();
+//                                } else {
+//                                    RequestPermissions();
+//                                    {
+//                                    }
+//                                    play_button.setVisibility(View.VISIBLE);
+//                                    active = false;
+//                                }
+//                            }
+//                        }
+//                    });
+//                    pause_button.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            PauseRunnable pauseRunnable = new PauseRunnable();
+//                            new Thread(pauseRunnable).start();
+//                        }
+//
+//                        class PauseRunnable implements Runnable {
+//                            @Override
+//                            public void run() {
+//                                pause_button.post(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        if (active) {
+//                                            timer.stop();
+//                                            active = false;
+//                                            play_button.setVisibility(View.VISIBLE);
+//                                            update = SystemClock.elapsedRealtime() - timer.getBase();
+//                                            locationManager.removeUpdates(ActivitesMapActivity.this);
+//
+//                                        }
+//                                    }
+//                                });
+//                            }
+//                        }
+//                    });
+//
+//
+//                    stop_btn.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            StopRunnable stopRunnable = new StopRunnable();
+//                            new Thread(stopRunnable).start();
+//
+//
+//                        }
+//
+//                        class StopRunnable implements Runnable {
+//                            @Override
+//                            public void run() {
+//                                stop_btn.post(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        //   SaveData();
+//                                    }
+//                                });
+//                            }
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//        stop_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                databaseReference.child("users").child("502093655").child("Distance").setValue(Distance);
+//                databaseReference.child("users").child("PhoneNumber").child("Calories").setValue(Calories);
+//                databaseReference.child("users").child("PhoneNumber").child("SpdInkmh").setValue(SpdInkmh);
+//                databaseReference.child("users").child("PhoneNumber").child("SpdInmph").setValue(SpdInmph);
+//            }
+//        });
+
+
+        mapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(MapboxMap mapboxMap) {
+                ActivitesMapActivity.this.mapboxMap = mapboxMap;
+                mapboxMap.setStyle(Style.MAPBOX_STREETS, style -> {
+                    // Initialize LocationComponent
+                    LocationComponent locationComponent = mapboxMap.getLocationComponent();
+
+                    // Activate LocationComponent with the appropriate options
+                    LocationComponentActivationOptions activationOptions =
+                            LocationComponentActivationOptions.builder(getApplicationContext(), style)
+                                    .useDefaultLocationEngine(true) // Use the default location engine
+                                    .build();
+
+                    locationComponent.activateLocationComponent(activationOptions);
+
+                    // Enable LocationComponent
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                            ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // Request location permission if not granted
+                        ActivityCompat.requestPermissions(ActivitesMapActivity.this,
+                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                LOCATION_PERMISSION_REQUEST_CODE);
+                    } else {
+                        locationComponent.setLocationComponentEnabled(true);
+                        locationComponent.addOnLocationClickListener(new OnLocationClickListener() {
+                            @Override
+                            public void onLocationComponentClick() {
+                                // Handle user clicks on the location icon if needed
+                            }
+                        });
+
+                        locationComponent.addOnCameraTrackingChangedListener(new OnCameraTrackingChangedListener() {
+                            @Override
+                            public void onCameraTrackingChanged(int currentMode) {
+                                // Handle camera tracking changes if needed
+                            }
+
+                            @Override
+                            public void onCameraTrackingDismissed() {
+                                // Handle camera tracking dismissed if needed
+                            }
+                        });
+
+                        // Set up location engine request
+                        LocationEngineRequest request = new LocationEngineRequest.Builder(1000) // Update interval in milliseconds
+                                .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
+                                .setMaxWaitTime(2000) // Maximum wait time between updates
+                                .build();
+
+                        // Set up location engine callback
+                        LocationEngineCallback<LocationEngineResult> callback = new LocationEngineCallback<LocationEngineResult>() {
+                            @Override
+                            public void onSuccess(LocationEngineResult result) {
+                                Location location = result.getLastLocation();
+                                if (location != null) {
+                                    // Calculate distance and speed
+                                    if (isTracking) {
+                                        double newLatitude = location.getLatitude();
+                                        double newLongitude = location.getLongitude();
+                                        double distance = calculateDistance(previousLatitude, previousLongitude, newLatitude, newLongitude);
+
+                                        // Calculate time elapsed
+                                        long timeElapsedMillis = System.currentTimeMillis() - StartTime;
+
+                                        // Update total distance with the accumulated distance
+                                        totalDistanceMeters += distance;
+
+                                        // Calculate speed in km/h and mph based on distance and time
+                                        double timeElapsedHours = timeElapsedMillis / (1000.0 * 60 * 60);
+                                        currentSpeedKmph = totalDistanceMeters / timeElapsedHours;
+                                        currentSpeedMph = totalDistanceMeters / (timeElapsedHours * 1.60934);
+
+                                        // Calculate calories burned
+                                        calculateCaloriesBurned(distance);
+
+                                        // Update UI elements with calculated values
+                                        updateElapsedTimeUI(timeElapsedMillis);
+                                        updateDistanceUI(totalDistanceMeters);
+                                        updateSpeedUI(currentSpeedKmph, currentSpeedMph);
+                                        updateCaloriesUI(caloriesBurned);
+
+                                        // Update previous location for next calculation
+                                        previousLatitude = newLatitude;
+                                        previousLongitude = newLongitude;
                                     }
-                                    play_button.setVisibility(View.VISIBLE);
-                                    active = false;
                                 }
                             }
-                        }
-                    });
-                    pause_button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            PauseRunnable pauseRunnable = new PauseRunnable();
-                            new Thread(pauseRunnable).start();
-                        }
 
-                        class PauseRunnable implements Runnable {
                             @Override
-                            public void run() {
-                                pause_button.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if (active) {
-                                            timer.stop();
-                                            active = false;
-                                            play_button.setVisibility(View.VISIBLE);
-                                            update = SystemClock.elapsedRealtime() - timer.getBase();
-                                            locationManager.removeUpdates(ActivitesMapActivity.this);
-
-                                        }
-                                    }
-                                });
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle location engine failure if needed
                             }
-                        }
-                    });
+                        };
+
+                        // Request location updates
+                        locationComponent.getLocationEngine().requestLocationUpdates(request, callback, getMainLooper());
+                    }
+                });
 
 
-                    stop_btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            StopRunnable stopRunnable = new StopRunnable();
-                            new Thread(stopRunnable).start();
-
-
-                        }
-
-                        class StopRunnable implements Runnable {
-                            @Override
-                            public void run() {
-                                stop_btn.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        //   SaveData();
-                                    }
-                                });
-                            }
-                        }
-                    });
-                }
+//                play_button.setOnClickListener(view -> startTracking());
+//                stop_btn.setOnClickListener(view -> captureLocation());
+//                playButton.setOnClickListener(view -> startTracking());
+//                finishButton.setOnClickListener(view -> captureLocation());
             }
-        });
-        stop_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                databaseReference.child("users").child("502093655").child("Distance").setValue(Distance);
-                databaseReference.child("users").child("PhoneNumber").child("Calories").setValue(Calories);
-                databaseReference.child("users").child("PhoneNumber").child("SpdInkmh").setValue(SpdInkmh);
-                databaseReference.child("users").child("PhoneNumber").child("SpdInmph").setValue(SpdInmph);
-            }
+
         });
 
     }
+    private void startTracking() {
+        // Start location tracking logic
+        isTracking = true;
 
+        // Capture the start time
+        StartTime = System.currentTimeMillis();
+
+        // Request location updates using LocationEngine
+        // Update map with location changes
+// Capture the start location
+        start_location = mapboxMap.getLocationComponent().getLastKnownLocation();
+        if (start_location != null) {
+            previousLatitude = start_location.getLatitude();
+            previousLongitude = start_location.getLongitude();
+        }
+        // Start the timer
+        startTimer();
+
+        // Update the camera position to the current location
+        if (start_location != null) {
+            mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(start_location.getLatitude(), start_location.getLongitude()), 14));
+        }
+    }
+
+    private void startTimer() {
+        Counttimer = new CountDownTimer(Long.MAX_VALUE, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                elapsedTime = System.currentTimeMillis() - StartTime;
+                updateElapsedTimeUI(elapsedTime);
+                updateValues();
+
+            }
+
+            @Override
+            public void onFinish() {
+                // Timer finished (this might not happen with Long.MAX_VALUE)
+            }
+        };
+        Counttimer.start();
+    }
+    private void pauseTracking() {
+        // Pause tracking logic
+        isTracking = false;
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+    }
+
+    private void stopTracking() {
+        // Stop tracking logic
+        pauseTracking();
+
+        // Capture the end location
+        Location lastLocation = mapboxMap.getLocationComponent().getLastKnownLocation();
+        if (lastLocation != null) {
+            double endLatitude = lastLocation.getLatitude();
+            double endLongitude = lastLocation.getLongitude();
+
+            double distance = calculateDistance(start_location.getLatitude(), start_location.getLongitude(), endLatitude, endLongitude);
+            totalDistanceMeters += distance;
+
+            // Calculate time elapsed
+            long timeElapsedMillis = System.currentTimeMillis() - StartTime;
+
+            // Calculate calories burned based on distance and time
+            calculateCaloriesBurned(distance);
+
+            // Update UI elements with calculated values
+            updateDistanceUI(totalDistanceMeters);
+            updateCaloriesUI(caloriesBurned);
+        }
+    }
+    private void updateValues() {
+        Location lastLocation = mapboxMap.getLocationComponent().getLastKnownLocation();
+        if (lastLocation != null) {
+            double newLatitude = lastLocation.getLatitude();
+            double newLongitude = lastLocation.getLongitude();
+
+            // Calculate distance between current and previous locations
+            double distance = calculateDistance(previousLatitude, previousLongitude, newLatitude, newLongitude);
+
+            // Calculate time taken to travel between two consecutive locations
+            long timeElapsedMillis = System.currentTimeMillis() - StartTime;
+            double timeElapsedHours = timeElapsedMillis / (1000.0 * 60 * 60);
+
+            // Calculate speed in km/h and mph based on distance and time
+            currentSpeedKmph = distance / timeElapsedHours;
+            currentSpeedMph = currentSpeedKmph / 1.60934;
+
+            // Update total distance with the accumulated distance
+            totalDistanceMeters += distance;
+
+            // Update previous location for next calculation
+            previousLatitude = newLatitude;
+            previousLongitude = newLongitude;
+
+            // Update UI elements with calculated values
+            updateElapsedTimeUI(timeElapsedMillis);
+            updateDistanceUI(totalDistanceMeters);
+            updateSpeedUI(currentSpeedKmph, currentSpeedMph);
+            calculateCaloriesBurned(totalDistanceMeters / 1000); // Convert to kilometers
+        }
+    }
+
+    private void captureLocation() {
+        if (isTracking) {
+            // Capture the end location
+            Location lastLocation = mapboxMap.getLocationComponent().getLastKnownLocation();
+            if (lastLocation != null) {
+                double endLatitude = lastLocation.getLatitude();
+                double endLongitude = lastLocation.getLongitude();
+
+                double distance = calculateDistance(start_location.getLatitude(), start_location.getLongitude(), endLatitude, endLongitude);
+                // Update total distance with the accumulated distance
+                totalDistanceMeters += distance;
+
+                // Calculate time elapsed
+                long timeElapsedMillis = System.currentTimeMillis() - StartTime;
+
+                // Calculate calories burned based on distance and time
+                calculateCaloriesBurned(distance);
+
+                // Stop the timer
+                if (Counttimer != null) {
+                    Counttimer.cancel();
+                    Counttimer = null;
+                }
+
+                // Update UI elements with calculated values
+                updateDistanceUI(totalDistanceMeters);
+                updateCaloriesUI(caloriesBurned);
+                updateElapsedTimeUI(timeElapsedMillis);
+            }
+
+            isTracking = false;
+        }
+    }
+
+    private void updateElapsedTimeUI(long timeInMillis) {
+        Chronometer elapsedTimeTextView = findViewById(R.id.activites_timer);
+        long seconds = timeInMillis / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        String elapsedTimeText = String.format("%02d:%02d:%02d", hours, minutes % 60, seconds % 60);
+        elapsedTimeTextView.setText(elapsedTimeText);
+    }
+
+    private void calculateCaloriesBurned(double distanceKm) {
+        // Constants for calorie estimation (replace with appropriate values)
+        double caloriesPerKm = 30.0; // Calories burned per kilometer
+
+        // Calculate calories burned based on distance
+        double calories = caloriesPerKm * distanceKm;
+
+        // Update UI with calculated calories
+        caloriesBurned = calories; // Update the global caloriesBurned variable
+        updateCaloriesUI(calories);
+    }
+    private void updateSpeedUI(double kmph, double mph) {
+        TextView speedKmphTextView = findViewById(R.id.activites_speedInkmh);
+        TextView speedMphTextView = findViewById(R.id.activites_spdInmph);
+        speedKmphTextView.setText(String.format("%.2f km/h", kmph));
+        speedMphTextView.setText(String.format("%.2f mph", mph));
+    }
+
+    private void updateCaloriesUI(double calories) {
+        TextView caloriesTextView = findViewById(R.id.activites_calories_counter);
+        caloriesTextView.setText(String.format("%.2f calories", calories));
+    }
+
+    private void updateDistanceUI(double distanceMeters) {
+        TextView distanceTextView = findViewById(R.id.activites_distance_counter);
+        distanceTextView.setText(String.format("%.2f km", distanceMeters / 1000));
+    }
+    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        final int R = 6371; // Radius of the Earth in kilometers
+
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return R * c; // Distance in kilometers
+    }
     private void calculateValues() {
         // Get user input or predefined values
         double distanceKm = 10.0; // Example distance in kilometers
@@ -487,6 +834,7 @@ public class ActivitesMapActivity extends AppCompatActivity implements LocationL
                         enableLocationComponent(style);
                     }
                 });
+
 
     }
 

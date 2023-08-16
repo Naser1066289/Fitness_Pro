@@ -200,14 +200,14 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                 startActivity(intent);
             }
         });
-        ImageView imageView = view.findViewById(R.id.testmapViewScreen);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), TestMap.class);
-                startActivity(intent);
-            }
-        });
+//        ImageView imageView = view.findViewById(R.id.testmapViewScreen);
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), ActivitesMapActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override

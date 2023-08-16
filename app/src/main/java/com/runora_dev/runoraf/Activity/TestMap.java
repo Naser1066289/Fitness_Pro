@@ -125,24 +125,30 @@ public class TestMap extends AppCompatActivity {
                                         double newLatitude = location.getLatitude();
                                         double newLongitude = location.getLongitude();
                                         double distance = calculateDistance(previousLatitude, previousLongitude, newLatitude, newLongitude);
-                                        totalDistanceMeters += distance;
-                                        previousLatitude = newLatitude;
-                                        previousLongitude = newLongitude;
 
-                                        // Calculate speed in km/h and mph
+                                        // Calculate time elapsed
                                         long timeElapsedMillis = System.currentTimeMillis() - startTime;
+
+                                        // Update total distance with the accumulated distance
+                                        totalDistanceMeters += distance;
+
+                                        // Calculate speed in km/h and mph based on distance and time
                                         double timeElapsedHours = timeElapsedMillis / (1000.0 * 60 * 60);
                                         currentSpeedKmph = totalDistanceMeters / timeElapsedHours;
                                         currentSpeedMph = totalDistanceMeters / (timeElapsedHours * 1.60934);
 
-                                        // Calculate calories burned (you need an appropriate formula for this)
-                                        // caloriesBurned = ...;
+                                        // Calculate calories burned
+                                        calculateCaloriesBurned(distance);
 
                                         // Update UI elements with calculated values
                                         updateElapsedTimeUI(timeElapsedMillis);
                                         updateDistanceUI(totalDistanceMeters);
                                         updateSpeedUI(currentSpeedKmph, currentSpeedMph);
                                         updateCaloriesUI(caloriesBurned);
+
+                                        // Update previous location for next calculation
+                                        previousLatitude = newLatitude;
+                                        previousLongitude = newLongitude;
                                     }
                                 }
                             }
@@ -223,6 +229,10 @@ public class TestMap extends AppCompatActivity {
         // Update map with location changes
 // Capture the start location
         startLocation = mapboxMap.getLocationComponent().getLastKnownLocation();
+        if (startLocation != null) {
+            previousLatitude = startLocation.getLatitude();
+            previousLongitude = startLocation.getLongitude();
+        }
         // Start the timer
         startTimer();
 
@@ -269,6 +279,9 @@ public class TestMap extends AppCompatActivity {
             currentSpeedKmph = distance / timeElapsedHours;
             currentSpeedMph = currentSpeedKmph / 1.60934;
 
+            // Update total distance with the accumulated distance
+            totalDistanceMeters += distance;
+
             // Update previous location for next calculation
             previousLatitude = newLatitude;
             previousLongitude = newLongitude;
@@ -277,7 +290,7 @@ public class TestMap extends AppCompatActivity {
             updateElapsedTimeUI(timeElapsedMillis);
             updateDistanceUI(totalDistanceMeters);
             updateSpeedUI(currentSpeedKmph, currentSpeedMph);
-            updateCaloriesUI(caloriesBurned);
+            calculateCaloriesBurned(totalDistanceMeters / 1000); // Convert to kilometers
         }
     }
     private void updateElapsedTimeUI(long timeInMillis) {
@@ -299,41 +312,45 @@ public class TestMap extends AppCompatActivity {
                 double endLongitude = lastLocation.getLongitude();
 
                 double distance = calculateDistance(startLocation.getLatitude(), startLocation.getLongitude(), endLatitude, endLongitude);
-                // Display the calculated distance
-                TextView distanceTextView = findViewById(R.id.distanceTextView);
-                distanceTextView.setText(String.format("%.2f km", distance));
+                // Update total distance with the accumulated distance
+                totalDistanceMeters += distance;
 
                 // Calculate time elapsed
                 long timeElapsedMillis = System.currentTimeMillis() - startTime;
 
                 // Calculate calories burned based on distance and time
-                calculateCaloriesBurned(distance, timeElapsedMillis);
-                // Update UI elements with calculated values
-                updateDistanceUI(totalDistanceMeters);
-                updateCaloriesUI(caloriesBurned);
-            }
+                calculateCaloriesBurned(distance);
+
                 // Stop the timer
                 if (timer != null) {
                     timer.cancel();
                     timer = null;
                 }
 
-                isTracking = false;
+                // Update UI elements with calculated values
+                updateDistanceUI(totalDistanceMeters);
+                updateCaloriesUI(caloriesBurned);
+                updateElapsedTimeUI(timeElapsedMillis);
             }
+
+            isTracking = false;
         }
+    }
+
+
 
     // Calculate calories burned based on distance and time
-    private void calculateCaloriesBurned(double distanceKm, long timeElapsedMillis) {
-        // Constants for calorie estimation (replace with appropriate values)
-        double caloriesPerKm = 30.0; // Calories burned per kilometer
-        double caloriesPerHour = 3600000.0; // Calories burned per hour
+        private void calculateCaloriesBurned(double distanceKm) {
+            // Constants for calorie estimation (replace with appropriate values)
+            double caloriesPerKm = 30.0; // Calories burned per kilometer
 
-        // Calculate calories burned
-        double calories = (caloriesPerKm * distanceKm) + ((timeElapsedMillis / caloriesPerHour) * caloriesPerHour);
+            // Calculate calories burned based on distance
+            double calories = caloriesPerKm * distanceKm;
 
-        // Update UI with calculated calories
-        updateCaloriesUI(calories);
-    }
+            // Update UI with calculated calories
+            caloriesBurned = calories; // Update the global caloriesBurned variable
+            updateCaloriesUI(calories);
+        }
 
 
 
