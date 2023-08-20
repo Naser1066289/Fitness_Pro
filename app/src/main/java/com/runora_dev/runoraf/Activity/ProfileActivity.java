@@ -1,11 +1,16 @@
 package com.runora_dev.runoraf.Activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +41,14 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Get the current user's UID
         String currentUserUid = firebaseAuth.getCurrentUser().getUid();
-
+        ImageView statisticBack = findViewById(R.id.profile_back_btn);
+        statisticBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), Home.class);
+                startActivity(intent);
+            }
+        });
         // Fetch user data from Firestore based on UID
         firestore.collection("user").document(currentUserUid)
                 .get()
@@ -61,6 +73,15 @@ public class ProfileActivity extends AppCompatActivity {
                         // Handle error
                     }
                 });
+
+        LinearLayout editProfile = (LinearLayout) findViewById(R.id.btn);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), EditProfileActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

@@ -19,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/road_run"
         tools:ignore="contentDescription" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/DateTab"
             android:layout_width="match_parent"
@@ -37,6 +36,20 @@
                 android:textColor="#ffffff"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/profile_back_btn"
+                android:layout_width="30dp"
+                android:layout_height="60dp"
+                android:fontFamily="@font/raleway_medium"
+                android:paddingTop="10dp"
+                android:text=""
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                app:srcCompat="@drawable/baseline_arrow_back_24"
+                android:layout_marginLeft="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

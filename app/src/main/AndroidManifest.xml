@@ -59,6 +59,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
+            android:name=".Activity.EditProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ActivitesMapActivity"
             android:exported="false" />
         <activity
