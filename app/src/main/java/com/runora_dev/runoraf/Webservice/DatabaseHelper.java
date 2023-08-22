@@ -36,14 +36,14 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL("create table "+food_table+"(id integer primary key autoincrement," +"sugar_g text,fiber_g text,serving_size_g text,sodium_mg text,name text,potassium_mg text,fat_saturated_g text,fat_total_g text,calories text,cholesterol_mg text,protein_g text,carbohydrates_total_g text )");
-        db.execSQL("create table dailyplanner(id integer primary key autoincrement,bitem text,bc real, litem text,lc real, ditem text,dc real, ddate text)");
+        db.execSQL("create table dailyplanner2(id integer primary key autoincrement,bitem text,bc real, litem text,lc real, ditem text,dc real, ddate text)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1)
     {
         db.execSQL("drop table if exists "+food_table);
-        db.execSQL("drop table if exists dailyplanner");
+        db.execSQL("drop table if exists dailyplanner2");
         onCreate(db);
     }
     public boolean addfood(String sugarG, String fiberG, String servingSizeG, String sodiumMg, String name1, String potassiumMg, String fatSaturatedG, String fatTotalG, String calories1, String cholesterolMg, String proteinG,String carbohydratesTotalG) {
@@ -70,6 +70,21 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         }
 
 
+    }
+    public boolean addDailyFoodUpdate(String selectedMeal, String bf,float bc,String dt) {
+        ContentValues c=new ContentValues();
+        c.put("bitem",bf);
+        c.put("bc",bc);
+        c.put("bm",selectedMeal);
+        c.put("ddate",dt);
+        SQLiteDatabase db=getWritableDatabase();
+        long reslt= db.insert("dailyplanner2",null,c);
+        if(reslt==-1){
+            return false;
+        }
+        else {
+            return  true;
+        }
     }
     public boolean addDailyFood(String bf,float bc, String lf, float lc, String df,float dc,String dt) {
         ContentValues c=new ContentValues();

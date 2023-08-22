@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.runora_dev.runoraf.R;
@@ -36,6 +37,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -53,10 +55,12 @@ public class DailyActivity extends AppCompatActivity {
 
     String sb, sl, sd;
     String mealQuery;
+    String selectedMeal;
     EditText etb, etl, etd;
     TextView tvb, tvl, tvd;
     View v1, v2, v3;
     String bc, lc, dc;
+    String mealCalories;
     Button btnClose, btnRep;
     DatabaseHelper databaseHelper;
     private FirebaseDatabase database;
@@ -141,7 +145,7 @@ public class DailyActivity extends AppCompatActivity {
 //        sb = etb.getText().toString();
 //        sl = etl.getText().toString();
 //        sd = etd.getText().toString();
-        String selectedMeal = spinnerMeals.getSelectedItem().toString();
+         selectedMeal = spinnerMeals.getSelectedItem().toString();
         mealQuery =  mealEditText.getText().toString();
 
         Toast.makeText(this, "Searching...", Toast.LENGTH_SHORT).show();
@@ -152,18 +156,21 @@ public class DailyActivity extends AppCompatActivity {
     }
 
     public void onSave(View v) {
+        float fmeal;
         float fb, fl, fd;         //storing the values in to the sqlite database
-        fb = Float.parseFloat(bc);
-        fl = Float.parseFloat(lc);
-        fd = Float.parseFloat(dc);
+//        fb = Float.parseFloat(bc);
+//        fl = Float.parseFloat(lc);
+//        fd = Float.parseFloat(dc);
+
+        fmeal = Float.parseFloat(mealCalories);
         String pattern = "dd-MM-yyyy";
         String dt = new SimpleDateFormat(pattern).format(new Date());
 
 
-        System.out.println(sb + " " + fb + " " + sl + " " + fl + " " + sd + " " + fd + " " + dt);
+//        System.out.println(sb + " " + fb + " " + sl + " " + fl + " " + sd + " " + fd + " " + dt);
 
         // Save data to offline
-        databaseHelper.addDailyFood(sb, fb, sl, fl, sd, fd, dt);
+        databaseHelper.addDailyFoodUpdate(selectedMeal,mealQuery, fmeal, dt);
 
          // Save data to firebase
         //Create a new database reference object
@@ -172,9 +179,12 @@ public class DailyActivity extends AppCompatActivity {
 
         // Create hashmap object to store the data
         HashMap<String, Object> data = new HashMap<>();
-        data.put("breakfastCalories", fb);
-        data.put("lunchCalories", fl);
-        data.put("dinnerCalories",fd);
+//        data.put("breakfastCalories", fb);
+//        data.put("lunchCalories", fl);
+//        data.put("dinnerCalories",fd);
+
+        data.put("mealCalories", fmeal);
+        data.put("selectedMeal", selectedMeal); // Add this line to store the selected meal rice
         data.put("date", dt);
         // Use the setValue() method to save the data to Firebase Realtime Database
         reference.push().setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -247,7 +257,23 @@ public class DailyActivity extends AppCompatActivity {
                         double calories = item.getDouble("calories"); // Replace "calories" with the actual key in your API response
 
                         // Update your UI elements with the calculated calories
-                        tvb.setText("Food Calories: " + calories);
+                        mealCalories = item.getString("calories");
+                        tvb.setText("Food Calories: " + mealCalories);
+                        // Assuming you have a reference to your Firebase database
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+                        // Save the data to the database
+                        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Get the current user's ID
+                        DatabaseReference userRef = databaseReference.child("users").child(userId);
+
+                        // Create a Map to store the data
+                        Map<String, Object> mealEntry = new HashMap<>();
+                        mealEntry.put("foodName", mealQuery);
+                        mealEntry.put("calories", calories);
+
+                        // Push the data to the "meals" node
+                        userRef.child("meals").push().setValue(mealEntry);
+
                         v1 = findViewById(R.id.view0);
                         v2 = findViewById(R.id.view1);
                         v3 = findViewById(R.id.view2);
