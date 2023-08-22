@@ -5,9 +5,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,12 +29,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 /*
@@ -45,6 +52,7 @@ three seperate background jobs are used to fetch the calori detils of each food 
 public class DailyActivity extends AppCompatActivity {
 
     String sb, sl, sd;
+    String mealQuery;
     EditText etb, etl, etd;
     TextView tvb, tvl, tvd;
     View v1, v2, v3;
@@ -53,21 +61,32 @@ public class DailyActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     private FirebaseDatabase database;
     private static final String TAG = "DailyActivity";
+    private Spinner spinnerMeals;
+    private EditText mealEditText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily);
         databaseHelper = new DatabaseHelper(getApplicationContext());
-        etb = findViewById(R.id.etb);
-        etl = findViewById(R.id.etl);
-        etd = findViewById(R.id.etd);
+//            etb = findViewById(R.id.etb);
+//            etl = findViewById(R.id.etl);
+//            etd = findViewById(R.id.etd);
         tvb = findViewById(R.id.tvb);
         tvl = findViewById(R.id.tvl);
         tvd = findViewById(R.id.tvd);
         btnRep = findViewById(R.id.btndailyrep);
         btnRep = findViewById(R.id.btnclose);
 
+        spinnerMeals = findViewById(R.id.spinnerMeals);
+        mealEditText = findViewById(R.id.meal);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.meal_options, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerMeals.setAdapter(adapter);
          // initialize Firebase database
         FirebaseApp.initializeApp(this);
         database = FirebaseDatabase.getInstance();
@@ -119,14 +138,17 @@ public class DailyActivity extends AppCompatActivity {
     }
 
     public void calculateClk(View view) {
-        sb = etb.getText().toString();
-        sl = etl.getText().toString();
-        sd = etd.getText().toString();
+//        sb = etb.getText().toString();
+//        sl = etl.getText().toString();
+//        sd = etd.getText().toString();
+        String selectedMeal = spinnerMeals.getSelectedItem().toString();
+        mealQuery =  mealEditText.getText().toString();
 
         Toast.makeText(this, "Searching...", Toast.LENGTH_SHORT).show();
-        new MyAsyncTask().execute();  //three background jobs
-        new MyAsyncTaskL().execute();
-        new MyAsyncTaskD().execute();
+//        new MyAsyncTask().execute();  //three background jobs
+//        new MyAsyncTaskL().execute();
+//        new MyAsyncTaskD().execute();
+        new CallApiTask().execute();
     }
 
     public void onSave(View v) {
@@ -186,6 +208,66 @@ public class DailyActivity extends AppCompatActivity {
 
     }
 
+    private class CallApiTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... queries) {
+//            String query = queries[0];
+            String apiKey = "JbKygV4Po77yVvpiiMArPQ==xaVWcihDC54KWLNR"; // Replace with your actual API key
+            String apiUrl = "https://api.calorieninjas.com/v1/nutrition?query=" + mealQuery;
+
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(apiUrl)
+                    .addHeader("X-Api-Key", apiKey)
+                    .build();
+
+            try {
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    return response.body().string();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            if (response != null) {
+                // Handle the API response here
+                try {
+                    JSONObject j = new JSONObject(response);
+                    JSONArray h = j.getJSONArray("items"); // Replace "items" with the actual key in your API response
+
+                    if (h.length() > 0) {
+                        JSONObject item = h.getJSONObject(0);
+
+                        double calories = item.getDouble("calories"); // Replace "calories" with the actual key in your API response
+
+                        // Update your UI elements with the calculated calories
+                        tvb.setText("Food Calories: " + calories);
+                        v1 = findViewById(R.id.view0);
+                        v2 = findViewById(R.id.view1);
+                        v3 = findViewById(R.id.view2);
+                        // Hide your views as needed
+                        v1.setVisibility(View.INVISIBLE);
+                        v2.setVisibility(View.INVISIBLE);
+                        v3.setVisibility(View.INVISIBLE);
+
+                    } else {
+                        // Handle case when no items are found
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Handle error
+            }
+        }
+    }
 
     /* #####AsyncTask Subclass################################################################### */
     private class MyAsyncTask extends AsyncTask<String, String, String> {

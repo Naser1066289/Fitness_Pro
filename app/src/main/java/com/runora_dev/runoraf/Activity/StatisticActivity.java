@@ -12,9 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -22,6 +27,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,23 +40,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class StatisticActivity extends AppCompatActivity {
 
-    private LineChart pieChart;
-    private  LineChart lineChart;
+//    private LineChart pieChart;
+//    private  LineChart lineChart;
+    private BarChart barChartBurned, barChartConsumed;
     private Spinner spinnerTimePeriod, spinnerTimePeriodConsumed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic);
-         lineChart = findViewById(R.id.lineChartBurned);
-        lineChart.setDragEnabled(true);
-        lineChart.setScaleEnabled(false);
+//         lineChart = findViewById(R.id.lineChartBurned);
+//        lineChart.setDragEnabled(true);
+//        lineChart.setScaleEnabled(false);
 
-        pieChart = (LineChart) findViewById(R.id.pieChart);
-        pieChart.setDragEnabled(true);
-        pieChart.setScaleEnabled(false);
+//        pieChart = (LineChart) findViewById(R.id.pieChart);
+
+        barChartBurned = (BarChart) findViewById(R.id.barChartBurned);
+        barChartConsumed = (BarChart) findViewById(R.id.barChartConsumed);
+
+//        pieChart.setDragEnabled(true);
+//        pieChart.setScaleEnabled(false);
         spinnerTimePeriod = findViewById(R.id.spinnerTimePeriod);
         spinnerTimePeriodConsumed = findViewById(R.id.spinnerTimePeriodConsumed);
         ImageView statisticBack = findViewById(R.id.statisc_back);
@@ -190,7 +202,7 @@ public class StatisticActivity extends AppCompatActivity {
         spinnerTimePeriod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                updateChart(position);
+                updateChartBurned(position);
             }
 
             @Override
@@ -219,32 +231,53 @@ public class StatisticActivity extends AppCompatActivity {
                 3.5f, 3.0f, 2.5f, 2.0f, 2.5f, 3.0f, 3.5f, 4.0f, 3.5f, 3.0f,
                 2.5f, 3.0f, 3.5f, 3.0f, 2.5f, 2.0f, 2.5f, 3.0f, 3.5f, 4.0f};
 
-        ArrayList<Entry> entriess1 = new ArrayList<>();
+//        ArrayList<Entry> entriess1 = new ArrayList<>();
+//        for (int i = 0; i < foodConsumption1.length; i++) {
+//            entriess1.add(new Entry(i, foodConsumption1[i]));
+//        }
+//
+//        LineDataSet dataSets2 = new LineDataSet(entriess1, "Food Consumption");
+//        dataSets2.setColor(Color.BLUE);
+//        dataSets2.setValueTextColor(Color.BLACK);
+//
+//        ArrayList<ILineDataSet> dataSetsd2 = new ArrayList<>();
+//        dataSetsd2.add(dataSets2);
+//
+//        LineData lineData1 = new LineData(dataSetsd2);
+//
+//        lineChart.setData(lineData1);
+//        lineChart.invalidate();
+        ArrayList<BarEntry> entries1 = new ArrayList<>();
         for (int i = 0; i < foodConsumption1.length; i++) {
-            entriess1.add(new Entry(i, foodConsumption1[i]));
+            entries1.add(new BarEntry(i, foodConsumption1[i])); // Use BarEntry instead of Entry
         }
 
-        LineDataSet dataSets2 = new LineDataSet(entriess1, "Food Consumption");
-        dataSets2.setColor(Color.BLUE);
-        dataSets2.setValueTextColor(Color.BLACK);
+        BarDataSet dataSet1 = new BarDataSet(entries1, "Food Consumption");
+        dataSet1.setColor(Color.BLUE);
+        dataSet1.setValueTextColor(Color.BLACK);
 
-        ArrayList<ILineDataSet> dataSetsd2 = new ArrayList<>();
-        dataSetsd2.add(dataSets2);
+        ArrayList<IBarDataSet> dataSets1 = new ArrayList<>();
+        dataSets1.add(dataSet1);
 
-        LineData lineData1 = new LineData(dataSetsd2);
+        BarData barData1 = new BarData(dataSets1); // Use BarData instead of LineData
 
-        lineChart.setData(lineData1);
-        lineChart.invalidate();
+        barChartBurned.setData(barData1);
+        barChartBurned.invalidate();
 
     }
 
-    private void updateChartConsumed(int position) {
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        LineDataSet dataSet = null;
-        String[] xAxisLabels = null;
-        ArrayList<Entry> entries = new ArrayList<>();
-        float[] caloriesData = null;
+    private void updateChartBurned(int position) {
+//        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+//        LineDataSet dataSet = null;
+//        String[] xAxisLabels = null;
+//        ArrayList<Entry> entries = new ArrayList<>();
+//        float[] caloriesData = null;
 
+        ArrayList<BarDataSet> dataSets = new ArrayList<>();
+        BarDataSet dataSet = null;
+        String[] xAxisLabels = null;
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        float[] caloriesData = null;
 
         // Dummy food consumption data for the last 30 days
         float[] foodburnedLastWeek = {4.5f, 3.0f, 2.0f, 2.5f, 3.5f, 2.0f, 6.5f, 3.0f, 2.5f, 3.0f,
@@ -276,18 +309,21 @@ public class StatisticActivity extends AppCompatActivity {
                 xAxisLabels = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
                 caloriesData = new float[]{4.5f, 3.0f, 2.0f, 2.5f, 3.5f, 2.0f, 6.5f};
                 for (int i = 0; i < caloriesData.length; i++) {
-                    entries.add(new Entry(i, caloriesData[i]));
+                    entries.add(new BarEntry(i, caloriesData[i]));
                 }
                 break;
-            case 1: // Last Month
-                String[] weeksOfMonth = {"Week 1", "Week 2", "Week 3", "Week 4"};
-                float[] totalCaloriesWeeks = new float[weeksOfMonth.length];
+            case 1:
+                xAxisLabels = new String[]{"Week 1", "Week 2", "Week 3", "Week 4"};
+                caloriesData = new float[]{4.5f, 3.0f, 2.0f, 2.5f};
 
-                for (int i = 0; i < weeksOfMonth.length; i++) {
-                    totalCaloriesWeeks[i] = calculateTotalCaloriesForWeek(weeksOfMonth[i]);
-                    entries.add(new Entry(i, totalCaloriesWeeks[i]));
+//                String[] weeksOfMonth = {"Week 1", "Week 2", "Week 3", "Week 4"};
+//                float[] totalCaloriesWeeks = new float[weeksOfMonth.length];
+
+                for (int i = 0; i < caloriesData.length; i++) {
+//                    totalCaloriesWeeks[i] = calculateTotalCaloriesForWeek(weeksOfMonth[i]);
+                    entries.add(new BarEntry(i, caloriesData[i]));
                 }
-                xAxisLabels = weeksOfMonth;
+//                xAxisLabels = weeksOfMonth;
                 break;
             case 2: // Last Year
                 String[] monthsOfYear = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
@@ -297,34 +333,208 @@ public class StatisticActivity extends AppCompatActivity {
                 for (int i = 0; i < monthsOfYear.length; i++) {
                     totalCaloriesMonths[i] = calculateTotalCaloriesForMonth(monthsOfYear[i]);
 //                    float totalCalories = calculateTotalCaloriesForMonth(monthsOfYear[i]);
-                    entries.add(new Entry(i, totalCaloriesMonths[i]));
+                    entries.add(new BarEntry(i, totalCaloriesMonths[i]));
                 }
                 break;
         }
 
-        dataSet = new LineDataSet(entries, ""); // Create the dataset
+//        dataSet = new LineDataSet(entries, ""); // Create the dataset
+//
+//        // Set line color and value text color
+//        dataSet.setColor(Color.BLUE);
+//        dataSet.setValueTextColor(Color.BLACK);
+//
+//        dataSets.add(dataSet); // Add the dataset to the dataSets list
+//
+//        LineData lineData = new LineData(dataSets); // Create a LineData object with the dataSets list
+//
+//        // Set the data to the lineChart and invalidate to refresh the chart
+//        lineChart.setData(lineData);
+//        lineChart.invalidate();
+//
+//        // Set the x-axis labels using IAxisValueFormatter
+//        XAxis xAxis = lineChart.getXAxis();
+//        xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabels));
+//        // Adjust the viewport for the x-axis
+//        xAxis.setGranularity(1f); // This ensures that each label is shown
+//        xAxis.setLabelCount(xAxisLabels.length); // Show all labels
+//        xAxis.setAvoidFirstLastClipping(true); // Avoid clipping the first and last labels
+//        xAxis.setLabelRotationAngle(45f); // Rotate the labels for better visibility
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // Position the labels at the bottom of the chart
 
-        // Set line color and value text color
-        dataSet.setColor(Color.BLUE);
-        dataSet.setValueTextColor(Color.BLACK);
+        dataSet = new BarDataSet(entries, ""); // Create the dataset for bar chart
+// Generate random colors for each bar
+        List<Integer> colors = new ArrayList<>();
+        Random random = new Random();
+
+        for (int i = 0; i < entries.size(); i++) {
+            int color = Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+            colors.add(color);
+        }
+
+        // Set bar color and value text color
+        dataSet.setColors(colors); // Set random colors for the bars
+            dataSet.setValueTextColor(Color.BLACK);
 
         dataSets.add(dataSet); // Add the dataset to the dataSets list
 
-        LineData lineData = new LineData(dataSets); // Create a LineData object with the dataSets list
+        BarData barData = new BarData(dataSet); // Create a BarData object with the dataSets list
 
-        // Set the data to the lineChart and invalidate to refresh the chart
-        lineChart.setData(lineData);
-        lineChart.invalidate();
-
+        // Set the data to the barChart and invalidate to refresh the chart
+        barChartBurned.setData(barData);
+        barChartBurned.invalidate();
+        Description description = new Description();
+        description.setText("Calories Burned");
+        barChartBurned.setDescription(description);
         // Set the x-axis labels using IAxisValueFormatter
-        XAxis xAxis = lineChart.getXAxis();
+        XAxis xAxis = barChartBurned.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabels));
         // Adjust the viewport for the x-axis
         xAxis.setGranularity(1f); // This ensures that each label is shown
         xAxis.setLabelCount(xAxisLabels.length); // Show all labels
         xAxis.setAvoidFirstLastClipping(true); // Avoid clipping the first and last labels
         xAxis.setLabelRotationAngle(45f); // Rotate the labels for better visibility
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // Position the labels at the bottom of the chart
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // Position the labels at the bottom of the char
+
+    }
+    private void updateChartConsumed(int position) {
+//        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+//        LineDataSet dataSet = null;
+//        String[] xAxisLabels = null;
+//        ArrayList<Entry> entries = new ArrayList<>();
+//        float[] caloriesData = null;
+
+        ArrayList<BarDataSet> dataSets = new ArrayList<>();
+        BarDataSet dataSet = null;
+        String[] xAxisLabels = null;
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        float[] caloriesData = null;
+
+        // Dummy food consumption data for the last 30 days
+        float[] foodburnedLastWeek = {4.5f, 3.0f, 2.0f, 2.5f, 3.5f, 2.0f, 6.5f, 3.0f, 2.5f, 3.0f,
+                3.5f, 4.0f, 2.5f, 2.0f, 2.5f, 5.0f, 9.5f, 4.0f, 3.6f, 3.0f};
+
+        float[] foodburnedLastMonth = {6.5f, 5.0f, 7.0f, 5.5f, 4.5f, 6.0f, 4.5f, 5.0f, 6.5f, 4.0f,
+                3.5f, 4.0f, 5.5f, 6.0f, 5.5f, 6.0f, 5.5f, 5.0f, 6.0f, 7.0f, 5.5f, 6.0f, 7.0f};
+
+        float[] foodburnedLastYear = {8.5f, 9.0f, 7.5f, 8.0f, 9.5f, 8.0f, 8.5f, 9.0f, 7.0f, 8.0f,
+                9.5f, 8.0f, 8.5f, 9.0f, 7.5f, 8.0f, 9.5f, 8.0f, 8.5f, 9.0f, 7.5f, 8.0f, 9.5f};
+
+        ArrayList<Entry> entriesLastWeek = new ArrayList<>();
+        for (int i = 0; i < foodburnedLastWeek.length; i++) {
+            entriesLastWeek.add(new Entry(i, foodburnedLastWeek[i]));
+        }
+
+        ArrayList<Entry> entriesLastMonth = new ArrayList<>();
+        for (int i = 0; i < foodburnedLastMonth.length; i++) {
+            entriesLastMonth.add(new Entry(i, foodburnedLastMonth[i]));
+        }
+
+        ArrayList<Entry> entriesLastYear = new ArrayList<>();
+        for (int i = 0; i < foodburnedLastYear.length; i++) {
+            entriesLastYear.add(new Entry(i, foodburnedLastYear[i]));
+        }
+
+        switch (position) {
+            case 0: // Last Week
+                xAxisLabels = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+                caloriesData = new float[]{4.5f, 3.0f, 2.0f, 2.5f, 3.5f, 2.0f, 6.5f};
+                for (int i = 0; i < caloriesData.length; i++) {
+                    entries.add(new BarEntry(i, caloriesData[i]));
+                }
+                break;
+            case 1: // Last Month
+//                String[] weeksOfMonth = {"Week 1", "Week 2", "Week 3", "Week 4"};
+//                float[] totalCaloriesWeeks = new float[weeksOfMonth.length];
+//
+//                for (int i = 0; i < weeksOfMonth.length; i++) {
+//                    totalCaloriesWeeks[i] = calculateTotalCaloriesForWeek(weeksOfMonth[i]);
+//                    entries.add(new BarEntry(i, totalCaloriesWeeks[i]));
+//                }
+//                xAxisLabels = weeksOfMonth;
+                xAxisLabels = new String[]{"Week 1", "Week 2", "Week 3", "Week 4"};
+                caloriesData = new float[]{4.5f, 3.0f, 2.0f, 2.5f};
+
+//                String[] weeksOfMonth = {"Week 1", "Week 2", "Week 3", "Week 4"};
+//                float[] totalCaloriesWeeks = new float[weeksOfMonth.length];
+
+                for (int i = 0; i < caloriesData.length; i++) {
+//                    totalCaloriesWeeks[i] = calculateTotalCaloriesForWeek(weeksOfMonth[i]);
+                    entries.add(new BarEntry(i, caloriesData[i]));
+                }
+                break;
+            case 2: // Last Year
+                String[] monthsOfYear = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                xAxisLabels = monthsOfYear; // Set the xAxisLabels for the year
+                float[] totalCaloriesMonths = new float[monthsOfYear.length];
+
+                for (int i = 0; i < monthsOfYear.length; i++) {
+                    totalCaloriesMonths[i] = calculateTotalCaloriesForMonth(monthsOfYear[i]);
+//                    float totalCalories = calculateTotalCaloriesForMonth(monthsOfYear[i]);
+                    entries.add(new BarEntry(i, totalCaloriesMonths[i]));
+                }
+                break;
+        }
+
+//        dataSet = new LineDataSet(entries, ""); // Create the dataset
+//
+//        // Set line color and value text color
+//        dataSet.setColor(Color.BLUE);
+//        dataSet.setValueTextColor(Color.BLACK);
+//
+//        dataSets.add(dataSet); // Add the dataset to the dataSets list
+//
+//        LineData lineData = new LineData(dataSets); // Create a LineData object with the dataSets list
+//
+//        // Set the data to the lineChart and invalidate to refresh the chart
+//        lineChart.setData(lineData);
+//        lineChart.invalidate();
+//
+//        // Set the x-axis labels using IAxisValueFormatter
+//        XAxis xAxis = lineChart.getXAxis();
+//        xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabels));
+//        // Adjust the viewport for the x-axis
+//        xAxis.setGranularity(1f); // This ensures that each label is shown
+//        xAxis.setLabelCount(xAxisLabels.length); // Show all labels
+//        xAxis.setAvoidFirstLastClipping(true); // Avoid clipping the first and last labels
+//        xAxis.setLabelRotationAngle(45f); // Rotate the labels for better visibility
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // Position the labels at the bottom of the chart
+
+        dataSet = new BarDataSet(entries, ""); // Create the dataset for bar chart
+// Generate random colors for each bar
+        List<Integer> colors = new ArrayList<>();
+        Random random = new Random();
+
+        for (int i = 0; i < entries.size(); i++) {
+            int color = Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+            colors.add(color);
+        }
+
+        // Set bar color and value text color
+        dataSet.setColors(colors); // Set random colors for the bars
+            dataSet.setValueTextColor(Color.BLACK);
+
+        dataSets.add(dataSet); // Add the dataset to the dataSets list
+
+        BarData barData = new BarData(dataSet); // Create a BarData object with the dataSets list
+
+        // Set the data to the barChart and invalidate to refresh the chart
+        barChartConsumed.setData(barData);
+        barChartConsumed.invalidate();
+        Description description = new Description();
+        description.setText("Calories Consumed");
+        barChartConsumed.setDescription(description);
+
+
+        // Set the x-axis labels using IAxisValueFormatter
+        XAxis xAxis = barChartConsumed.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabels));
+        // Adjust the viewport for the x-axis
+        xAxis.setGranularity(1f); // This ensures that each label is shown
+        xAxis.setLabelCount(xAxisLabels.length); // Show all labels
+        xAxis.setAvoidFirstLastClipping(true); // Avoid clipping the first and last labels
+        xAxis.setLabelRotationAngle(45f); // Rotate the labels for better visibility
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // Position the labels at the bottom of the char
 
     }
 
@@ -403,18 +613,18 @@ public class StatisticActivity extends AppCompatActivity {
         LineData lineData = new LineData(dataSets); // Create a LineData object with the dataSets list
 
         // Set the data to the lineChart and invalidate to refresh the chart
-        pieChart.setData(lineData);
-        pieChart.invalidate();
-
-        // Set the x-axis labels using IAxisValueFormatter
-        XAxis xAxis = pieChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabels));
-        // Adjust the viewport for the x-axis
-        xAxis.setGranularity(1f); // This ensures that each label is shown
-        xAxis.setLabelCount(xAxisLabels.length); // Show all labels
-        xAxis.setAvoidFirstLastClipping(true); // Avoid clipping the first and last labels
-        xAxis.setLabelRotationAngle(45f); // Rotate the labels for better visibility
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // Position the labels at the bottom of the chart
+//        pieChart.setData(lineData);
+//        pieChart.invalidate();
+//
+//         Set the x-axis labels using IAxisValueFormatter
+//        XAxis xAxis = pieChart.getXAxis();
+//        xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabels));
+//         Adjust the viewport for the x-axis
+//        xAxis.setGranularity(1f); // This ensures that each label is shown
+//        xAxis.setLabelCount(xAxisLabels.length); // Show all labels
+//        xAxis.setAvoidFirstLastClipping(true); // Avoid clipping the first and last labels
+//        xAxis.setLabelRotationAngle(45f); // Rotate the labels for better visibility
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // Position the labels at the bottom of the chart
 
     }
 

@@ -3,4 +3,10 @@
 <string name="app_name">Run.app</string>
     <string name="time">Zeit</string>
     <string name="distance">Entfernung</string>
+    <string-array name="meal_options">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+        <item>Snack</item>
+    </string-array>
 </resources>

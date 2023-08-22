@@ -26,15 +26,23 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/consumed_textView" />
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/pieChart"
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChartBurned"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerTimePeriod" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTimePeriod"/>
+
+<!--    <com.github.mikephil.charting.charts.LineChart-->
+<!--        android:id="@+id/pieChart"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/spinnerTimePeriod" />-->
 
     <TextView
         android:id="@+id/consumed_textView"
@@ -57,7 +65,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pieChart" />
+        app:layout_constraintTop_toBottomOf="@id/barChartBurned" />
 
     <Spinner
         android:id="@+id/spinnerTimePeriodConsumed"
@@ -66,8 +74,9 @@
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/burned_textView" />
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChartBurned"
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChartConsumed"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="24dp"
@@ -76,7 +85,18 @@
         android:layout_marginRight="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerTimePeriodConsumed" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTimePeriodConsumed"/>
+<!--    <com.github.mikephil.charting.charts.LineChart-->
+<!--        android:id="@+id/lineChartBurned"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:textAlignment="center"-->
+<!--        android:layout_marginLeft="5dp"-->
+<!--        android:layout_marginRight="5dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/spinnerTimePeriodConsumed" />-->
 
     <ImageView
         android:id="@+id/statisc_back"

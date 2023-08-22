@@ -36,35 +36,57 @@
             android:text="Daily Food Details"
             android:textSize="24sp"
             android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/etb"
+        <Spinner
+            android:id="@+id/spinnerMeals"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:ems="10"
-            android:hint="breakfast"
-            android:inputType="textPersonName" />
+            android:layout_margin="8dp"/>
+                <EditText
+                    android:id="@+id/meal"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ems="10"
+                    android:hint="Food"
+                    android:inputType="textPersonName" />
+<!--        <EditText-->
+<!--            android:id="@+id/etb"-->
+<!--            android:layout_width="250dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:ems="10"-->
+<!--            android:hint="breakfast"-->
+<!--            android:inputType="textPersonName" />-->
 
-        <EditText
-            android:id="@+id/etl"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:ems="10"
-            android:hint="Lunch"
-            android:inputType="textPersonName" />
+<!--        <EditText-->
+<!--            android:id="@+id/etl"-->
+<!--            android:layout_width="250dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:ems="10"-->
+<!--            android:hint="Lunch"-->
+<!--            android:inputType="textPersonName" />-->
 
-        <EditText
-            android:id="@+id/etd"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:ems="10"
-            android:hint="Dinner"
-            android:inputType="textPersonName" />
+<!--        <EditText-->
+<!--            android:id="@+id/etd"-->
+<!--            android:layout_width="250dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:ems="10"-->
+<!--            android:hint="Dinner"-->
+<!--            android:inputType="textPersonName" />-->
+<!--        <EditText-->
+<!--            android:id="@+id/ets"-->
+<!--            android:layout_width="250dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:ems="10"-->
+<!--            android:hint="Snack"-->
+<!--            android:inputType="textPersonName" />-->
 
         <Button
             android:id="@+id/calculateBtn"
@@ -102,6 +124,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -118,6 +141,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
