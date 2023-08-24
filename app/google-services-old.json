@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1024563222358",
+    "firebase_url": "https://runora-app-ceeee-default-rtdb.firebaseio.com",
+    "project_id": "runora-app-ceeee",
+    "storage_bucket": "runora-app-ceeee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024563222358:android:30371efbfbc00b29e4e8f7",
+        "android_client_info": {
+          "package_name": "com.runora_dev.runoraf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024563222358-h70m2hfv8efi4d37nb5khk75j9m161uu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.runora_dev.runoraf",
+            "certificate_hash": "b674ce82c9043edd5963987c78c5949ff1eb8dae"
+          }
+        },
+        {
+          "client_id": "1024563222358-dfiohn8lra0oi4hl0a4q10v77c5v0l1i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBngbcjMg_aC0Jf1mw6l9qjjSRDmnb6p_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1024563222358-dfiohn8lra0oi4hl0a4q10v77c5v0l1i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -79,7 +79,8 @@ import java.util.Locale;
 
 
 public class ActivitesMapActivity extends AppCompatActivity implements LocationListener, com.google.android.gms.location.LocationListener, OnMapReadyCallback, PermissionsListener {
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://runora-app-ceeee-default-rtdb.firebaseio.com");
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://fitness-final-a14e0-default-rtdb.firebaseio.com");
+//    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://runora-app-ceeee-default-rtdb.firebaseio.com");
     private static final int PermissionCode = 58;
 
 
